@@ -1,7 +1,7 @@
 # CardInfo.js
 CardInfo.js позволяет по номеру карты получить логотип банка и типа, фирменные цвета и прочее. Используйте эти данные, чтобы верстать красивые формы для приёма банковских карт. В базе сейчас 50 самых популярных российских банков, позже будут добавлены банки и для других стран, тогда же будет переведна документация на английский язык.
 
-![](https://habrastorage.org/files/0d1/cda/94b/0d1cda94b68c47ddb48c98e24f812931.gif)
+![](https://habrastorage.org/files/6c2/d82/3ac/6c2d823acd4e433e806f306d52255829.gif)
 
 ## Быстрый старт
 [Скачайте CardInfo.js](https://github.com/iserdmi/card-info/archive/master.zip), установите через bower `bower install card-info` или npm `npm install card-info`.
@@ -17,7 +17,7 @@ var cardInfo = new CardInfo('4377730000000000');
 console.log('Название банка:', cardInfo.bankName); 
 // > Название банка: Тинькофф Банк
 console.log('Логотип банка:', cardInfo.bankLogo); 
-// > Логотип банка: /bower_components/card-info/dist/banks-logos/ru-tinkoff.png
+// > Логотип банка: /bower_components/card-info/dist/banks-logos/ru-tinkoff.svg
 ```
 
 ## Конструктор
@@ -167,9 +167,9 @@ import CardInfo from 'card-info'
 Код проверн и работает во всех браузерах включая Internet Explorer 6. Чтобы прогнать тесты выполните команду `npm test` или откройте в браузере файл `test/browser/main.html`.
 
 ## Особая благодарность
-Спасибо [BIN Codes](https://www.bincodes.com) за актуальную базу префиксов для всех банков
-Спасибо [Stuart Colville](https://muffinresearch.co.uk/svg-credit-card-icons/) за логотипы типов
-Спасибо [Евгению Катышеву](http://evgenykatyshev.ru/notes/all/mir-logo/) за логотип платёжной системы МИР
+Спасибо [BIN Codes](https://www.bincodes.com) за актуальную базу префиксов для всех банков  
+Спасибо [Stuart Colville](https://muffinresearch.co.uk/svg-credit-card-icons/) за логотипы типов  
+Спасибо [Евгению Катышеву](http://evgenykatyshev.ru/notes/all/mir-logo/) за логотип платёжной системы МИР  
 
 ## Нравится плагин?
 Можете поблагодарить меня словами или деньгами [на этой странице.](http://srdm.io/спасибо)

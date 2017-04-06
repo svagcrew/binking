@@ -1,0 +1,21 @@
+{
+  "name": "Транскапиталбанк",
+  "nameEn": "Transcapitalbank",
+  "url": "https://www.tkbbank.ru/",
+  "backgroundColor": "#8cf5f4",
+  "backgroundColors": [
+    "#8cf5f4",
+    "#ffe6bf"
+  ],
+  "backgroundLightness": "light",
+  "logoStyle": "colored",
+  "text": "#005599",
+  "prefixes": [
+    "402877",
+    "446950",
+    "473869",
+    "478474",
+    "478475",
+    "478476"
+  ]
+}

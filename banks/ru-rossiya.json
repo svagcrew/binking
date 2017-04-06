@@ -1,0 +1,33 @@
+{
+  "name": "Россия",
+  "nameEn": "Rossiya",
+  "url": "http://www.abr.ru/",
+  "backgroundColor": "#eeeeee",
+  "backgroundColors": [
+    "#eeeeee",
+    "#98c2dd"
+  ],
+  "backgroundLightness": "light",
+  "logoStyle": "colored",
+  "text": "#07476e",
+  "prefixes": [
+    "220008",
+    "419905",
+    "426809",
+    "426810",
+    "426811",
+    "426812",
+    "426813",
+    "426814",
+    "426815",
+    "430708",
+    "430709",
+    "452235",
+    "452236",
+    "458722",
+    "458723",
+    "476280",
+    "476946",
+    "485071"
+  ]
+}

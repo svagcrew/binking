@@ -1,0 +1,23 @@
+{
+  "extends": "standard",
+  "plugins": [
+    "standard",
+    "promise",
+    "import"
+  ],
+  "rules": {
+    "comma-dangle": ["error", {
+      "arrays": "never",
+      "objects": "never",
+      "imports": "never",
+      "exports": "never",
+      "functions": "never"
+    }],
+    "no-console": ["error", {
+      "allow": ["warn", "error", "info"]
+    }],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": true
+    }]
+  }
+}

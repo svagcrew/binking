@@ -1,0 +1,33 @@
+{
+  "name": "Абсолют Банк",
+  "nameEn": "Absolut Bank",
+  "url": "http://absolutbank.ru/",
+  "backgroundColor": "#fdb89a",
+  "backgroundColors": [
+    "#fbd6c5",
+    "#fdb89a"
+  ],
+  "backgroundLightness": "light",
+  "logoStyle": "colored",
+  "text": "#676766",
+  "prefixes": [
+    "406372",
+    "416132",
+    "420336",
+    "420337",
+    "421919",
+    "423569",
+    "428252",
+    "428253",
+    "428254",
+    "443306",
+    "443307",
+    "443308",
+    "443309",
+    "458731",
+    "464827",
+    "464828",
+    "530527",
+    "541997"
+  ]
+}

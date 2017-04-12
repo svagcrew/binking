@@ -167,7 +167,7 @@ import CardInfo from 'card-info'
 ```
 
 ## Cutting Logos
-All bank logos in the original size are stored in the folder `src/banks-logos`. If you installed CardInfo.js in npm, you will be able to use the command `npm run build-banks-logos`. After its call, all logos from the folder `src/banks-logos` will be transformed into PNG format, reduced to 600 pixels in width and 200 in height, copied to the folder` dist/banks-logos`. To change the settings for slicing logos, pass the settings when calling the command like this: `npm run build-build banks-logos -- -w 1000 -h 300`
+All bank logos in the original size are stored in the folder `src/banks-logos`. If you installed CardInfo.js in npm, you will be able to use the command `npm run build-banks-logos`. After its call, all logos from the folder `src/banks-logos` will be transformed into PNG format, reduced to 600 pixels in width and 200 in height, copied to the folder` dist/banks-logos`. To change the settings for slicing logos, pass the settings when calling the command like this: `npm run build-banks-logos -- -w 1000 -h 300`
 
 * **`-w | --width`** by default `600`  
   Width in pixels to which the image will be reduced/enlarged

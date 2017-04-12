@@ -127,8 +127,8 @@ describe('CardInfo', function () {
       expect(CardInfo._defaultProps.numberLengths).to.be.an('array')
     })
 
-    it('.numberLengths should have one element', function () {
-      expect(CardInfo._defaultProps.numberLengths.length).to.equal(1)
+    it('.numberLengths should have at least one element', function () {
+      expect(CardInfo._defaultProps.numberLengths.length).to.be.greaterThan(0)
     })
 
     it('.numberLengths each element should be a number', function () {

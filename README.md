@@ -1,175 +1,192 @@
 # CardInfo.js
-CardInfo.js позволяет по номеру карты получить логотип банка и типа, фирменные цвета и прочее. Используйте эти данные, чтобы верстать красивые формы для приёма банковских карт. В базе сейчас 50 самых популярных российских банков, позже будут добавлены банки и для других стран, тогда же будет переведна документация на английский язык.
+CardInfo.js allows you to get the logo of the bank and brand, brand colors and etc. by card number. Use this data to make beautiful forms for bank cards. The database currently has 49 most popular Russian banks, soon will be added banks for United States, Canada, England, Australia and New Zealand. You can play with the example of the form [on the demo page.](http://srdm.io/demo/card-info)
+
+[Документация на русском языке здесь.](https://github.com/iserdmi/card-info/blob/master/README.ru.md)
 
 ![](https://habrastorage.org/files/6c2/d82/3ac/6c2d823acd4e433e806f306d52255829.gif)
 
-## Быстрый старт
-[Скачайте CardInfo.js](https://github.com/iserdmi/card-info/archive/master.zip), установите через bower `bower install card-info` или npm `npm install card-info`.
+## Get Started
+[Download CardInfo.js](https://github.com/iserdmi/card-info/archive/master.zip), install via bower `bower install card-info` or npm `npm install card-info`.
 
-Подключите JS файл с плагином к странице:
+Insert JS file with plugin to your html:
 ```html
 <script src="/bower_components/card-info/dist/card-info.min.js"></script>
 ```
 
-Теперь можете использовать класс `CardInfo` в своём коде:
+Now you can use the class `CardInfo` in your code:
 ```js
 var cardInfo = new CardInfo('4377730000000000');
-console.log('Название банка:', cardInfo.bankName); 
-// > Название банка: Тинькофф Банк
-console.log('Логотип банка:', cardInfo.bankLogo); 
-// > Логотип банка: /bower_components/card-info/dist/banks-logos/ru-tinkoff.svg
+console.log('Bank name:', cardInfo.bankName);
+// > Bank Name: Tinkoff Bank
+console.log('Bank logo:', cardInfo.bankLogo);
+// > Bank logo: /bower_components/card-info/dist/banks-logos/ru-tinkoff.svg
 ```
 
-## Конструктор
+## Constructor
 ```
 new CardInfo(number)
 new CardInfo(number, options)
 ```
 
-* **`number`** номер карты, число или строка, в строке допустимы пробелы.
-* **`options`** объект с настройками.
+* **`number`** card number, number or string, spaces are allowed in the string.
+* **`options`** the object with the settings.
 
+## Instance
+If the first 6 digits of the card number failed to determine the bank details, then the fields bankAlias, bankName, bankNameEn, bankCountry, bankUrl, bankLogoPng, bankLogoSvg, bankLogo, bankLogoStyle, backgroundColor, backgroundColors, backgroundLightness, textColor, backgroundGradient will have a default value.
 
-## Экземпляр
-Если по первым 6 цифрам в номере карты не удалось определить данные о банке, поля bankAlias, bankName, bankNameEn, bankCountry, bankUrl, bankLogoPng, bankLogoSvg, bankLogo, bankLogoStyle, backgroundColor, backgroundColors, backgroundLightness, textColor, backgroundGradient будут иметь значение по умолчанию.
+If the first digits in the card number failed to determine the brand information, the fields brandAlias, brandName, brandLogoPng, brandLogoSvg, brandLogo, codeName, codeLength, numberLengths, numberGaps will have a default value.
 
-Если по первым цифрам в номере карты не удалось определить данные о типе, поля brandAlias, brandName, brandLogoPng, brandLogoSvg, brandLogo, codeName, codeLength, numberLengths, numberGaps будут иметь значение по умолчанию.
-
-* **`bankAlias`** по умолчанию `null`  
-  Короткое название банка на английском, все буквы маленькие, без пробелов. Если банк не определён, значение `null`.
-* **`bankName`** по умолчанию `null`  
-  Название банка на языке той страны, в которой работает банк.
-* **`bankNameEn`** по умолчанию `null`  
-  Название банка на английском.
-* **`bankCountry`** по умолчанию `null`  
-  Код страны в которой работает этот банк. `'ru'` — Россия.
-* **`bankUrl`** по умолчанию `null`  
-  Ссылка на сайт банка.
-* **`bankLogo`** по умолчанию `null`  
-  Путь к логотипу банка. Для каждого банка в папке `dist/banks-logos` есть логотип в формате PNG, для некоторых ещё и в SVG. Имя файла определяется свойством экземпляра `bankAlias`. Путь к файлу определяется свойством настроек `banksLogosPath`. Расширение логотипа определяется свойством настроек `preferredExt`. Пример: для банка «Тинькоф» значение будет `'/bower_components/card-info/dist/banks-logos/ru-tinkoff.svg'`.
-* **`bankLogoPng`** по умолчанию `null`  
-  Путь к логотипу банка в формате PNG.
-* **`bankLogoSvg`** по умолчанию `null`  
-  Путь к логотипу банка в формате SVG, если для этого банка существует логотип в формате SVG.
-* **`bankLogoStyle`** по умолчанию `null`  
-  Если логотип преимущественно чёрный, то `"black"`, если белый, то `"white"`, если цветной, то `"colored"`.
-* **`backgroundColor`** по умолчанию `'#eeeeee'`  
-  Цвет, ассоциирующийся с банком. Если банк не определён, значение будет `'#eeeeee'`.
-* **`backgroundColors`** по умолчанию `['#eeeeee', '#dddddd']`  
-  Массив цветов ассоциирующихся с банком. Если банк не определён, значение будет `['#eeeeee', '#dddddd']`.
-* **`backgroundLightness`** по умолчанию `'light'`  
-  Если цвет фона светлый, то значением будет строка `'light'`, иначе `'dark'`.
-* **`backgroundGradient`** по умолчанию `linear-gradient(135deg, #eeeeee, #dddddd)`  
-  Содержит строку с CSS значением свойства `background`, установив которое, вы получите градиент из цветов указанны в поле `backgroundColors`. Угол можно указать в свойстве настроек `gradientDegrees`.
-* **`textColor`** по умолчанию `'#000'`  
-  Цвет текста, который хорошо будет виден на фоне указанном в свойстве `backgroundColor`.
-* **`brandAlias`** по умолчанию `null`  
-  Короткое название типа на английском, все буквы маленькие, без пробелов.
-* **`brandName`** по умолчанию `null`  
-  Полное название типа.
-* **`brandLogo`** по умолчанию `null`  
-  Путь к логотипу типа. Для каждого типа в папке `dist/brands-logos` есть логотип в формате PNG и SVG и в трёх стилях: чёрном, белом и цветном. Имя файла определяется свойством экземпляра `brandAlias`. Путь к файлу определяется свойством настроек `brandsLogosPath`. Расширение логотипа определяется свойством настроек `preferredExt`. Стиль логотипа определяется свойством настроек `brandLogoPolicy`. Пример: для типа «Visa» значение будет `'/bower_components/card-info/dist/brands-logos/visa-colored.svg'`.
-* **`brandLogoPng`** по умолчанию `null`  
-  Путь к логотипу типа в формате PNG.
-* **`brandLogoSvg`** по умолчанию `null`  
-  Путь к логотипу типа в формате SVG.
-* **`codeName`** по умолчанию `null`  
-  Название кода на обратной стороне карты (CVC/CID/CVV/CVN).
-* **`codeLength`** по умолчанию `null`  
-  Ожидаемая длина кода безопасности. Обычно 3, но для карт American Express 4.
-* **`numberMask`** по умолчанию `null`  
-  Маска для номера карты данного типа. Обычно маска 0000 0000 0000 0000, но некоторые типы карт имеют отличную от 16 символов длину номера карты, и пробелы расставляются в других местах. Например, для карт American Express маска будет 0000 000000 00000. Символы в маске могут быть изменены путем изменения настроек `maskDigitSymbol` и `maskDelimiterSymbol`. Используйте свойство `numberMask` для наложения маски на поле ввода номера карты.
-* **`numberGaps`** по умолчанию `[4, 8, 12]`  
-  Массив с числами, определяющими положение пробелов при создании маски.
-* **`numberLengths`** по умолчанию `[16]`  
-  Массив с числами, определяющими допустимое количество символов в номере карты.
+* **`bankAlias`** by default `null`  
+  Short name of the bank in English, all letters are small, without spaces. If the bank is not defined, the value is `null`.
+* **`bankName`** by default `null`  
+  The name of the bank in the language of the country in which the bank operates.
+* **`bankNameEn`** by default `null`  
+  Name of the bank in English.
+* **`bankCountry`** by default `null`  
+  The country code in which this bank operates. `'ru'` - Russia.
+* **`bankUrl`** by default `null`  
+  Link to the site of the bank.
+* **`bankLogo`** by default `null`  
+  The path to the bank's logo. For each bank in the folder `dist/banks-logos` there is a logo in PNG format, for some, also in SVG. The name of the file is determined by the property of the instance of `bankAlias`. The path to the file is determined by the property of the settings `banksLogosPath`. The extension of the logo is determined by the property of the preferences `preferredExt`. Example: for the bank "Tinkoff" the value will be `'/bower_components/card-info/dist/banks-logos/ru-tinkoff.svg'`.
+* **`bankLogoPng`** by default `null`  
+  The path to the bank's logo in PNG format.
+* **`bankLogoSvg`** by default `null`  
+  The path to the bank's logo in SVG format, if there is a logo in SVG format for this bank.
+* **`bankLogoStyle`** by default `null`  
+  If the logo is predominantly black, then `'black'`, if it is white, then `'white'`, if colored, `'colored'`.
+* **`backgroundColor`** by default `'#eeeeee'`  
+  The color associated with the bank. If the bank is not defined, the value will be `'#eeeeee'`.
+* **`backgroundColors`** by default `['#eeeeee', '#dddddd']`  
+  An array of colors associated with the bank. If the bank is not defined, the value will be `['#eeeeee', '#dddddd']`.
+* **`backgroundLightness`** by default `'light'`  
+  If the background color is light, then the value is `'light'`, otherwise `'dark'`.
+* **`backgroundGradient`** by default `linear-gradient(135deg, #eeeeee, #dddddd)`  
+  Contains a string with the CSS property of the `background` property, setting which, you will get a gradient from the colors specified in the field` backgroundColors`. The angle can be specified in the property of the settings `gradientDegrees`.
+* **`textColor`** by default `'#000'`  
+  The color of the text that will be well visible on the background specified in the `backgroundColor` property.
+* **`brandAlias`** by default `null`  
+  Short name of the brand in English, all letters are small, without spaces.
+* **`brandName`** by default `null`  
+  The full name of the brand.
+* **`brandLogo`** by default `null`  
+  The path to the logo brand. For each brand in the folder `dist/brands-logos` there is a logo in PNG and SVG format and in three styles: black, white and color. The name of the file is determined by the property of the instance `brandAlias`. The path to the file is determined by the properties of the `brandsLogosPath` settings. The extension of the logo is determined by the property of the preferences `preferredExt`. The style of the logo is determined by the property of the `brandLogoPolicy` settings. Example: for the "Visa" brand, the value will be `'/bower_components/card-info/dist/brands-logos/visa-colored.svg'`.
+* **`brandLogoPng`** by default `null`  
+  The path to the logo brand in PNG format.
+* **`brandLogoSvg`** by default `null`  
+  The path to the logo brand in SVG format.
+* **`codeName`** by default `null`  
+  The name of the code on the back of the card (CVC/CID/CVV/CVN).
+* **`codeLength`** by default `null`  
+  Expected length of the security code. Usually 3, but for American Express cards 4.
+* **`numberMask`** by default `null`  
+  Mask for the card number of this brand. Usually the mask is 0000 0000 0000 0000, but some brands of cards have a different length of the card number than 16 characters, and spaces are placed in other places. For example, for American Express cards the mask will be 0000 000000 00000. The characters in the mask can be changed by changing the settings of `maskDigitSymbol` and `maskDelimiterSymbol`. Use the `numberMask` property to apply a mask to the card number entry field.
+* **`numberGaps`** by default `[4, 8, 12]`  
+  An array with numbers that determine the position of spaces when creating a mask.
+* **`numberLengths`** by default `[12, 13, 14, 15, 16, 17, 18, 19]`  
+  An array with numbers that define the number of characters allowed in the card number.
 * **`numberNice`**  
-  Номер карты, приведённый к красивому виду. Маска определяется свойством `numberMask`. Пример: 4377730000000000 → 4377 7300 0000 0000, 437773 → 4377 73.
+  Card number, resulted in a beautiful view. The mask is defined by the property `numberMask`. Example: 4377730000000000 → 4377 7300 0000 0000, 437773 → 4377 73.
 * **`number`**  
-  Номер карты в виде строки с удалёнными пробелами. Если в переданном номере карты были какие-либо символы, кроме цифр и пробелов, будет пустая строка.
+  Card number as a string with deleted spaces. If there were any characters in the transmitted card number, except for digits and spaces, there will be an empty string.
 * **`numberSource`**  
-  Номер карты, переданный при создании экземпляра.
+  The card number that was sent when the instance was created.
 * **`options`**  
-  Настройки, использованные при создании экземпляра.
+  The settings used to create the instance.
 
-## Настройки
-* **`banksLogosPath`** по умолчанию `'/bower_components/card-info/dist/banks-logos/'`.  
-  Путь к файлам с логотипами банков.
-* **`brandsLogosPath`** по умолчанию `'/bower_components/card-info/dist/brands-logos/'`.  
-  Путь к файлам с логотипами типов.
-* **`brandLogoPolicy`** по умолчанию `'auto'`.  
-  Эта настройка определяет стиль логотипа типа. Доступные значения: 'black', 'white', 'colored', 'auto', 'mono'.
+## Settings
+Settings are transferred either when creating a new instance:
+```js
+var cardInfo = new CardInfo('4377730000000000', {
+  banksLogosPath: '/my/path/to/banks/logos',
+  brandsLogosPath: '/my/path/to/brands/logos'
+});
+```
+
+Or, the default settings are set, which will be applied when creating all subsequent instances:
+```js
+CardInfo.setDefaultOptions({
+  banksLogosPath: '/my/path/to/banks/logos',
+  brandsLogosPath: '/my/path/to/brands/logos'
+});
+```
+
+* **`banksLogosPath`** by default `'/bower_components/card-info/dist/banks-logos/'`  
+  The path to files with bank logos.
+* **`brandsLogosPath`** by default `'/bower_components/card-info/dist/brands-logos/'`  
+  The path to files with brand logos.
+* **`brandLogoPolicy`** by default `'auto'`  
+  This setting determines the style of the logo brand. Available values ​​are 'black', 'white', 'colored', 'auto', 'mono'.
   * `'colored'`  
-    Логотип типа будет цветным
+    The brand logo will be colored
   * `'black'`  
-    Логотип типа будет чёрным
+    The brand logo will be black
   * `'white'`  
-    Логотип типа будет белым
+    The brand logo will be white
   * `'mono'`  
-    Логотип типа будет белым, если фон (`backgroundLightness`) тёмный ('`dark'`)
-    Логотип типа будет чёрным, если фон (`backgroundLightness`) светлый (`'light'`)
+    The brand logo will be white, if the background (`backgroundLightness`) is dark (`'dark'`)
+    The brand logo will be black if the background (`backgroundLightness`) is light (`'light'`)
   * `'auto'`  
-    Логотип типа будет цветным, если стиль логотипа банка (`bankLogoStyle`) цветной (`'colored'`)
-    Логотип типа будет белым, если стиль логотипа банка (`bankLogoStyle`) белый (`'white'`)
-    Логотип типа будет чёрным, если стиль логотипа банка (`bankLogoStyle`) чёрный (`'black'`)
-    Логотип типа будет цветным, если банк не определён
-* **`preferredExt`** по умолчанию `'svg'`.  
-  Предпочтительное расширение для логотипов банков и типов. Значением может быть `'png'` или `'svg'`.
-* **`maskDigitSymbol`** по умолчанию `'0'`  
-  Символ, обозначающий цифру в маске номера карты, указанной в свойстве экземпляра `numberMask`.
-* **`maskDelimiterSymbol`** по умолчанию `' '`  
-  Символ, обозначающий разделитель в маске номера карты, указанной в свойстве экземпляра `numberMask`. 
-* **`gradientDegrees`** по умолчанию `135`  
-  Градус, под которым идёт градиент указанный в свойстве экземпляра `backgroundGradient`.
+    The logo of the brand will be colored if the style of the bank logo (`bankLogoStyle`) is colored (`'colored'`)
+    The brand logo will be white if the bank logo style (`bankLogoStyle`) is white (`'white'`)
+    The brand logo will be black if the bank logo style (`bankLogoStyle`) is black (`'black'`)
+    The brand logo will be colored if the bank is not defined
+* **`preferredExt`** by default `'svg'`  
+  Preferred extension for bank logos and brands. The value can be `'png'` or `'svg'`.
+* **`maskDigitSymbol`** by default `'0'`  
+  A character indicating the number in the mask of the card number specified in the property of the instance `numberMask`.
+* **`maskDelimiterSymbol`** by default `''`  
+  A symbol indicating the delimiter in the mask of the card number specified in the property of the `numberMask` instance.
+* **`gradientDegrees`** by default `135`  
+  Degree, under which there is a gradient specified in the property of the instance `backgroundGradient`.
 
-## Статические методы
+## Static methods
 * **`CardInfo.setDefaultOptions(options)`**  
-  Единожды установив настройки по умолчанию, они будут применены при каждом создании экземпляра.
+  Once the default settings are set, they will be applied each time the instance is created.
 
-## Статические свойства
+## Static properties
 * **`CardInfo.banks`**  
-  Объект с данными по каждому банку. Ключи — короткие название банков (bankAlias).
+  The object with the data for each bank. Keys are short names of banks (`bankAlias`).
 
-## Способы подключения
-1. Подключить основной файл. В таком случае вы загрузите всю базу данных банков.
+## Ways of connecting
+1. Connect the main file. In this case, you download the entire database of banks.
 ```html
 <script src="/bower_components/card-info/dist/card-info.min.js"></script>
 ```
 
-2. Подключить только файл с логикой, без базы данных, а базу данных для вашей страны отдельно. Базы банков отдельно для каждой страны находятся в папке «dist/banks-and-prefixes».
+2. Connect only the file with the logic, without the database, and the database for your country separately. Bases of banks for each country separately are located in the `dist/banks-and-prefixes` folder.
 ```html
 <script src="/bower_components/card-info/dist/card-info.core.min.js"></script>
 <script src="/bower_components/card-info/dist/banks-and-prefixes/ru.min.js"></script>
 ```
 
-3. Подключить в качестве модуля в своём коде
+3. Connect as a module in your code
 ```js
 const CardInfo = require('card-info')
-// или
+// or
 import CardInfo from 'card-info'
 ```
 
-## Нарезка логотипов
-Все логотипы банков в исходном размере хрнятся в папке `src/banks-logos`. Если вы устанавливали CardInfo.js чере npm вам будет доступна команда `npm run build-banks-logos`. После её вызова, все логотипы из папки `src/banks-logos` будут преображены в формат PNG, уменьшены до 600 пикселей по ширине и 200 по высоте, скопированы в папку `dist/banks-logos`. Чтобы изменить настройки нарезки логотипов, передайте настройки при вызове команды вот так `npm run build-banks-logos -- -w 1000 -h 300`
+## Cutting Logos
+All bank logos in the original size are stored in the folder `src/banks-logos`. If you installed CardInfo.js in npm, you will be able to use the command `npm run build-banks-logos`. After its call, all logos from the folder `src/banks-logos` will be transformed into PNG format, reduced to 600 pixels in width and 200 in height, copied to the folder` dist/banks-logos`. To change the settings for slicing logos, pass the settings when calling the command like this: `npm run build-build banks-logos -- -w 1000 -h 300`
 
-* **`-w  | --width`** по умолчанию `600`  
-  Ширина в пикселях до которой будет уменьшено/увеличено изображение
-* **`-h | --height`** по умолчанию `200`  
-  Высота в пикселях до которой будет уменьшено/увеличено изображение
-* **`-n | --enlargement`** по умолчанию отключено  
-  Если изображение меньше по ширине или высоте, чем переданные в настройках значения, то картинка не будет увеличена. Однако, если передать эту опцию, то картинка будет увеличена принудительно.
-* **`-e | --embed`** по умолчанию отключено  
-  Изображение уменьшается/увеличивается пропорционально своим исходным размером. Так, к примеру, картинка 600×200, при нарезке с опциями `-w 200 -h 100` станет 200×50. Однако, если передать эту опцию, то картинка станет 200×100, а пустое пространство займёт прозрачная область.
+* **`-w | --width`** by default `600`  
+  Width in pixels to which the image will be reduced/enlarged
+* **`-h | --height`** by default `200`  
+  Height in pixels to which the image will be reduced/enlarged
+* **`-n | --enlargement`** is disabled by default
+  If the image is smaller in width or height than the values ​​transferred in the settings, the picture will not be enlarged. However, if you transfer this option, the picture will be forced.
+* **`-e | --embed`** is disabled by default
+  The image decreases/increases in proportion to its original size. So, for example, a picture of 600 × 200, when cutting with the options `-w 200 -h 100` becomes 200×50. However, if you pass this option, the picture will become 200×100, and the empty space will be taken by a transparent area.
 
-Вся информация выше также распространяется на логотипы типов. Команда: `npm run build-brands-logos`. Исходная папка: `src/brands-logos`. Конечная папка: `dist/brands-logos`. По умолчанию высота 60 пикселей, а ширина не указана.
+All the information above also applies to brand logos. The command: `npm run build-brands-logos`. Source folder: `src/brands-logos`. The destination folder is `dist/brands-logos`. The default height is 60 pixels, and the width is not specified.
 
-## Работоспособность
-Код проверен и работает во всех браузерах, включая Internet Explorer 6. Чтобы прогнать тесты, выполните команду `npm test` или откройте в браузере файл `test/browser/main.html`.
+## Performance
+The code is checked and works in all browsers, including Internet Explorer 6. To run the tests, run the command `npm test` or open the file `test/browser/main.html` in the browser.
 
-## Особая благодарность
-Спасибо [BIN Codes](https://www.bincodes.com) за актуальную базу префиксов для всех банков  
-Спасибо [Stuart Colville](https://muffinresearch.co.uk/svg-credit-card-icons/) за логотипы типов  
-Спасибо [Евгению Катышеву](http://evgenykatyshev.ru/notes/all/mir-logo/) за логотип платёжной системы МИР  
+## Thanks
+Thanks to [BIN Codes](https://www.bincodes.com) for the current database of prefixes for all banks.  
+Thanks to [Stuart Colville](https://muffinresearch.co.uk/svg-credit-card-icons/) for brand logos.  
+Thanks to [Evgeny Katyshev](http://evgenykatyshev.ru/notes/all/mir-logo/) for the logo of the MIR payment system.  
 
-## Нравится плагин?
-Можете поблагодарить меня словами или деньгами [на этой странице.](http://srdm.io/спасибо)
+## Do you like the plugin?
+Help correct errors in the documentation, please.

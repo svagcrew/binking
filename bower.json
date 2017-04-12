@@ -1,7 +1,7 @@
 {
   "name": "card-info",
   "description": "Get bank logo, colors, brand and etc. by card number",
-  "main": "dits/card-info.min.js",
+  "main": "dits/card-info.js",
   "authors": [
     {
       "name": "Sergey Dmitriev",

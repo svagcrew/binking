@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
- * card-info v1.0.1
+ * card-info v1.0.2
  * Get bank logo, colors, brand and etc. by card number
  * https://github.com/iserdmi/card-info.git
  * by Sergey Dmitriev (http://srdm.io)
@@ -75,7 +75,7 @@
     codeLength: null,
     numberMask: null,
     numberGaps: [4, 8, 12],
-    numberLengths: [16],
+    numberLengths: [12, 13, 14, 15, 16, 17, 18, 19],
     numberNice: null,
     number: null,
     numberSource: null,
@@ -6813,8 +6813,8 @@ describe('CardInfo', function () {
       expect(CardInfo._defaultProps.numberLengths).to.be.an('array')
     })
 
-    it('.numberLengths should have one element', function () {
-      expect(CardInfo._defaultProps.numberLengths.length).to.equal(1)
+    it('.numberLengths should have at least one element', function () {
+      expect(CardInfo._defaultProps.numberLengths.length).to.be.greaterThan(0)
     })
 
     it('.numberLengths each element should be a number', function () {

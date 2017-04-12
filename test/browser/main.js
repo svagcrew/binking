@@ -1086,6 +1086,23 @@
       "country": "ru",
       "logoPng": "ru-vtb24.png"
     },
+    "ru-yandex": {
+      "name": "Яндекс.Деньги",
+      "nameEn": "Yandex.Money",
+      "url": "https://money.yandex.ru",
+      "backgroundColor": "#272727",
+      "backgroundColors": [
+        "#444",
+        "#222"
+      ],
+      "backgroundLightness": "dark",
+      "logoStyle": "white",
+      "text": "#fff",
+      "alias": "ru-yandex",
+      "country": "ru",
+      "logoPng": "ru-yandex.png",
+      "logoSvg": "ru-yandex.svg"
+    },
     "ru-zenit": {
       "name": "Зенит",
       "nameEn": "Zenit",
@@ -2124,6 +2141,7 @@
     "510499": "ru-uralsib",
     "510508": "ru-uralsib",
     "510511": "ru-mib",
+    "510621": "ru-yandex",
     "511741": "ru-uralsib",
     "512003": "ru-rosbank",
     "512051": "ru-roscap",

@@ -1,0 +1,16 @@
+{
+  "name": "Яндекс.Деньги",
+  "nameEn": "Yandex.Money",
+  "url": "https://money.yandex.ru",
+  "backgroundColor": "#272727",
+  "backgroundColors": [
+    "#444",
+    "#222"
+  ],
+  "backgroundLightness": "dark",
+  "logoStyle": "white",
+  "text": "#fff",
+  "prefixes": [
+    "510621"
+  ]
+}

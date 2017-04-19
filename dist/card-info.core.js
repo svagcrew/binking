@@ -1,5 +1,5 @@
 /*
- * card-info v1.2.1
+ * card-info v1.2.2
  * Get bank logo, colors, brand and etc. by card number
  * https://github.com/iserdmi/card-info.git
  * by Sergey Dmitriev (http://srdm.io)

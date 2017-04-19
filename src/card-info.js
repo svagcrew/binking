@@ -282,10 +282,6 @@
   }
 
   CardInfo.getBanks = function (options) {
-    options = options || {}
-  }
-
-  CardInfo.getBanks = function (options) {
     options = CardInfo._assign({}, CardInfo.defaultOptions, options || {})
     var banks = []
     var exts = ['png', 'svg']

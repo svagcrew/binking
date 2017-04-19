@@ -1,5 +1,5 @@
 /*
- * card-info v1.2.0
+ * card-info v1.2.1
  * Get bank logo, colors, brand and etc. by card number
  * https://github.com/iserdmi/card-info.git
  * by Sergey Dmitriev (http://srdm.io)
@@ -286,10 +286,6 @@
   CardInfo.addBanksAndPrefixes = function (banksAndPrefixes) {
     this._addBanks(banksAndPrefixes.banks)
     this._addPrefixes(banksAndPrefixes.prefixes)
-  }
-
-  CardInfo.getBanks = function (options) {
-    options = options || {}
   }
 
   CardInfo.getBanks = function (options) {

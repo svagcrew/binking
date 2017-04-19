@@ -1,5 +1,5 @@
 /*
- * card-info v1.0.2
+ * card-info v1.1.0
  * Get bank logo, colors, brand and etc. by card number
  * https://github.com/iserdmi/card-info.git
  * by Sergey Dmitriev (http://srdm.io)
@@ -46,7 +46,8 @@
       this.numberGaps = brandData.gaps
     }
 
-    this.numberMask = CardInfo._getMask(this.options.maskDigitSymbol, this.options.maskDelimiterSymbol, this.numberLengths, this.numberGaps)
+    this.numberBlocks = CardInfo._getBlocks(this.numberGaps, this.numberLengths)
+    this.numberMask = CardInfo._getMask(this.options.maskDigitSymbol, this.options.maskDelimiterSymbol, this.numberBlocks)
     this.numberNice = CardInfo._getNumberNice(this.number, this.numberGaps)
   }
 
@@ -74,6 +75,7 @@
     codeLength: null,
     numberMask: null,
     numberGaps: [4, 8, 12],
+    numberBlocks: null,
     numberLengths: [12, 13, 14, 15, 16, 17, 18, 19],
     numberNice: null,
     number: null,
@@ -238,12 +240,22 @@
     return 'linear-gradient(' + gradientDegrees + 'deg, ' + backgroundColors.join(', ') + ')'
   }
 
-  CardInfo._getMask = function (maskDigitSymbol, maskDelimiterSymbol, numberLengths, numberGaps) {
-    var length = numberLengths[numberLengths.length - 1]
-    var mask = Array(length + 1).join(maskDigitSymbol)
-    for (var i = 0; i < numberGaps.length; i++) {
-      var gapPos = numberGaps[i] + maskDelimiterSymbol.length * i
-      mask = [mask.slice(0, gapPos), maskDelimiterSymbol, mask.slice(gapPos)].join('')
+  CardInfo._getBlocks = function (numberGaps, numberLengths) {
+    var numberLength = numberLengths[numberLengths.length - 1]
+    var blocks = []
+    for (var i = numberGaps.length - 1; i >= 0; i--) {
+      var blockLength = numberLength - numberGaps[i]
+      numberLength -= blockLength
+      blocks.push(blockLength)
+    }
+    blocks.push(numberLength)
+    return blocks.reverse()
+  }
+
+  CardInfo._getMask = function (maskDigitSymbol, maskDelimiterSymbol, numberBlocks) {
+    var mask = ''
+    for (var i = 0; i < numberBlocks.length; i++) {
+      mask += (i ? maskDelimiterSymbol : '') + Array(numberBlocks[i] + 1).join(maskDigitSymbol)
     }
     return mask
   }

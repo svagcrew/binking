@@ -78,10 +78,12 @@ If the first digits in the card number failed to determine the brand information
   The name of the code on the back of the card (CVC/CID/CVV/CVN).
 * **`codeLength`** by default `null`  
   Expected length of the security code. Usually 3, but for American Express cards 4.
-* **`numberMask`** by default `null`  
+* **`numberMask`** by default `0000 0000 0000 0000000`  
   Mask for the card number of this brand. Usually the mask is 0000 0000 0000 0000, but some brands of cards have a different length of the card number than 16 characters, and spaces are placed in other places. For example, for American Express cards the mask will be 0000 000000 00000. The characters in the mask can be changed by changing the settings of `maskDigitSymbol` and `maskDelimiterSymbol`. Use the `numberMask` property to apply a mask to the card number entry field.
 * **`numberGaps`** by default `[4, 8, 12]`  
   An array with numbers that determine the position of spaces when creating a mask.
+* **`numberBlocks`** by default `[4, 4, 4, 7]`  
+  An array with numbers that determine the number of digits in each block of the mask. It is defined on the basis of the property `numberGaps` and the maximum number in `numberLengths`.
 * **`numberLengths`** by default `[12, 13, 14, 15, 16, 17, 18, 19]`  
   An array with numbers that define the number of characters allowed in the card number.
 * **`numberNice`**  

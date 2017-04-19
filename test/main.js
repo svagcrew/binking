@@ -72,6 +72,7 @@ describe('CardInfo', function () {
       'codeName',
       'codeLength',
       'numberMask',
+      'numberBlocks',
       'numberGaps',
       'numberLengths',
       'numberNice',
@@ -159,6 +160,7 @@ describe('CardInfo', function () {
       'brandLogoSvg',
       'codeName',
       'codeLength',
+      'numberBlocks',
       'numberMask',
       'numberNice',
       'number',
@@ -300,9 +302,6 @@ describe('CardInfo', function () {
   })
 
   describe('._prefixes', function () {
-    if (typeof window === 'undefined') {
-    }
-
     it('should be an object', function () {
       expect(CardInfo._prefixes).to.be.an('object')
     })
@@ -312,12 +311,14 @@ describe('CardInfo', function () {
     })
 
     it('each prefix should be six digits string', function () {
+      this.timeout(0)
       _.each(CardInfo._prefixes, function (bankAlias, prefix) {
         expect(prefix).to.match(/^\d{6}$/)
       })
     })
 
     it('each prefix should belongs to existing bank', function () {
+      this.timeout(0)
       _.each(CardInfo._prefixes, function (bankAlias) {
         expect(CardInfo.banks[bankAlias]).to.be.ok()
       })
@@ -569,10 +570,17 @@ describe('CardInfo', function () {
     })
   })
 
+  describe('._getBlocks()', function () {
+    it('should return number blocks by avaliable lengths and gaps', function () {
+      expect(CardInfo._getBlocks([4, 8, 12], [16])).to.eql([4, 4, 4, 4])
+      expect(CardInfo._getBlocks([4, 8, 12], [16, 17])).to.eql([4, 4, 4, 5])
+    })
+  })
+
   describe('._getMask()', function () {
     it('should return mask by digit symbol, delimiter symbol, avaliable lengths and gaps', function () {
-      expect(CardInfo._getMask('0', ' ', [16], [4, 8, 12])).to.equal('0000 0000 0000 0000')
-      expect(CardInfo._getMask('X', '-', [16, 17], [4, 8, 12])).to.equal('XXXX-XXXX-XXXX-XXXXX')
+      expect(CardInfo._getMask('0', ' ', [4, 4, 4, 4])).to.equal('0000 0000 0000 0000')
+      expect(CardInfo._getMask('X', '-', [4, 4, 4, 5])).to.equal('XXXX-XXXX-XXXX-XXXXX')
     })
   })
 
@@ -925,13 +933,24 @@ describe('CardInfo', function () {
     })
   })
 
+  describe('#numberBlocks', function () {
+    it('should be number blocks created by detected brand lengths and gaps', function () {
+      var expectedNumberBlocks = CardInfo._getBlocks(getBrand().gaps, getBrand().lengths)
+      expect((new CardInfo(getBrandPrefix())).numberBlocks).to.eql(expectedNumberBlocks)
+    })
+
+    it('should be default if brand not detected', function () {
+      var expectedNumberBlocks = CardInfo._getBlocks(CardInfo._defaultProps.numberGaps, CardInfo._defaultProps.numberLengths)
+      expect((new CardInfo('')).numberBlocks).to.eql(expectedNumberBlocks)
+    })
+  })
+
   describe('#numberMask', function () {
     it('should be number mask created by detected brand lengths and gaps', function () {
       var expectedNumberMask = CardInfo._getMask(
         CardInfo.defaultOptions.maskDigitSymbol,
         CardInfo.defaultOptions.maskDelimiterSymbol,
-        getBrand().lengths,
-        getBrand().gaps
+        CardInfo._getBlocks(getBrand().gaps, getBrand().lengths)
       )
       expect((new CardInfo(getBrandPrefix())).numberMask).to.equal(expectedNumberMask)
     })
@@ -940,8 +959,7 @@ describe('CardInfo', function () {
       var expectedNumberMask = CardInfo._getMask(
         CardInfo.defaultOptions.maskDigitSymbol,
         CardInfo.defaultOptions.maskDelimiterSymbol,
-        CardInfo._defaultProps.numberLengths,
-        CardInfo._defaultProps.numberGaps
+        CardInfo._getBlocks(CardInfo._defaultProps.numberGaps, CardInfo._defaultProps.numberLengths)
       )
       expect((new CardInfo('')).numberMask).to.equal(expectedNumberMask)
     })

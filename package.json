@@ -1,9 +1,9 @@
 {
   "name": "card-info",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engines": {
     "node": "7.7.1",
-    "npm": "4.1.2"
+    "npm": "4.5.0"
   },
   "description": "Get bank logo, colors, brand and etc. by card number",
   "main": "dist/card-info.js",

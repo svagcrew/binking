@@ -1,5 +1,5 @@
 /*
- * card-info v1.1.0
+ * card-info v1.2.0
  * Get bank logo, colors, brand and etc. by card number
  * https://github.com/iserdmi/card-info.git
  * by Sergey Dmitriev (http://srdm.io)
@@ -93,11 +93,11 @@
     gradientDegrees: 135
   }
 
-  CardInfo.banks = {}
+  CardInfo._banks = {}
 
   CardInfo._prefixes = {}
 
-  CardInfo.brands = [
+  CardInfo._brands = [
     {
       alias: 'visa',
       name: 'Visa',
@@ -186,7 +186,11 @@
     for (var i = 1; i < arguments.length; i++) {
       var objSource = arguments[i]
       for (var key in objSource) {
-        objTarget[key] = objSource[key]
+        if (objSource[key] instanceof Array) {
+          objTarget[key] = CardInfo._assign([], objSource[key])
+        } else {
+          objTarget[key] = objSource[key]
+        }
       }
     }
     return objTarget
@@ -201,14 +205,14 @@
     if (number.length < 6) return undefined
     var prefix = number.substr(0, 6)
     return this._prefixes[prefix]
-      ? this.banks[this._prefixes[prefix]]
+      ? this._banks[this._prefixes[prefix]]
       : undefined
   }
 
   CardInfo._getBrand = function (number) {
     var brands = []
-    for (var i = 0; i < this.brands.length; i++) {
-      if (this.brands[i].pattern.test(number)) brands.push(this.brands[i])
+    for (var i = 0; i < this._brands.length; i++) {
+      if (this._brands[i].pattern.test(number)) brands.push(this._brands[i])
     }
     if (brands.length === 1) return brands[0]
   }
@@ -272,7 +276,7 @@
   }
 
   CardInfo._addBanks = function (banks) {
-    this._assign(this.banks, banks)
+    this._assign(this._banks, banks)
   }
 
   CardInfo._addPrefixes = function (prefixes) {
@@ -282,6 +286,51 @@
   CardInfo.addBanksAndPrefixes = function (banksAndPrefixes) {
     this._addBanks(banksAndPrefixes.banks)
     this._addPrefixes(banksAndPrefixes.prefixes)
+  }
+
+  CardInfo.getBanks = function (options) {
+    options = options || {}
+  }
+
+  CardInfo.getBanks = function (options) {
+    options = CardInfo._assign({}, CardInfo.defaultOptions, options || {})
+    var banks = []
+    var exts = ['png', 'svg']
+    var extsCapitalized = ['Png', 'Svg']
+    for (var bi in this._banks) {
+      var bank = CardInfo._assign({}, this._banks[bi])
+      for (var ei = 0; ei < exts.length; ei++) {
+        var logoKey = 'logo' + extsCapitalized[ei]
+        if (bank[logoKey]) bank[logoKey] = CardInfo._getLogo(options.banksLogosPath, bank[logoKey])
+      }
+      bank.backgroundGradient = CardInfo._getGradient(bank.backgroundColors, options.gradientDegrees)
+      bank.logo = CardInfo._getLogoByPreferredExt(bank.logoPng, bank.logoSvg, options.preferredExt)
+      banks.push(bank)
+    }
+    return banks
+  }
+
+  CardInfo.getBrands = function (options) {
+    options = CardInfo._assign({}, CardInfo.defaultOptions, options || {})
+    var brands = []
+    var styles = ['colored', 'black', 'white']
+    var exts = ['png', 'svg']
+    var stylesCapitalized = ['Colored', 'Black', 'White']
+    var extsCapitalized = ['Png', 'Svg']
+    for (var bi = 0; bi < this._brands.length; bi++) {
+      var brand = CardInfo._assign({}, this._brands[bi])
+      brand.blocks = CardInfo._getBlocks(brand.gaps, brand.lengths)
+      brand.mask = CardInfo._getMask(options.maskDigitSymbol, options.maskDelimiterSymbol, brand.blocks)
+      for (var si = 0; si < styles.length; si++) {
+        var logoKey = 'logo' + stylesCapitalized[si]
+        for (var ei = 0; ei < exts.length; ei++) {
+          brand[logoKey + extsCapitalized[ei]] = CardInfo._getLogo(options.brandsLogosPath, brand.alias + '-' + styles[si], exts[ei])
+        }
+        brand[logoKey] = CardInfo._getLogoByPreferredExt(brand[logoKey + 'Png'], brand[logoKey + 'Svg'], options.preferredExt)
+      }
+      brands.push(brand)
+    }
+    return brands
   }
 
   CardInfo.setDefaultOptions = function (options) {
@@ -3691,10 +3740,10 @@
     "679074": "ru-uralsib"
   }
   if (typeof exports !== 'undefined') {
-    exports.CardInfo.banks = banks
+    exports.CardInfo._banks = banks
     exports.CardInfo._prefixes = prefixes
   } else if (typeof window !== 'undefined') {
-    window.CardInfo.banks = banks
+    window.CardInfo._banks = banks
     window.CardInfo._prefixes = prefixes
   }
 }())

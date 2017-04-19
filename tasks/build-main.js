@@ -32,10 +32,10 @@ const banksInjectionCode = `
   var banks = ${JSON.stringify(banksAndPrefixes.banks, null, 2).split('\n').map(line => '  ' + line).join('\n').trim()}
   var prefixes = ${JSON.stringify(banksAndPrefixes.prefixes, null, 2).split('\n').map(line => '  ' + line).join('\n').trim()}
   if (typeof exports !== 'undefined') {
-    exports.CardInfo.banks = banks
+    exports.CardInfo._banks = banks
     exports.CardInfo._prefixes = prefixes
   } else if (typeof window !== 'undefined') {
-    window.CardInfo.banks = banks
+    window.CardInfo._banks = banks
     window.CardInfo._prefixes = prefixes
   }
 }())

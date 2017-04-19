@@ -12,7 +12,7 @@ function isUrlValid (url) {
 }
 
 function getBrand () {
-  return _.find(CardInfo.brands, { alias: 'visa' })
+  return _.find(CardInfo._brands, { alias: 'visa' })
 }
 
 function getBrandPrefix () {
@@ -20,7 +20,7 @@ function getBrandPrefix () {
 }
 
 function getBank () {
-  return CardInfo.banks[_.keys(CardInfo.banks)[0]]
+  return CardInfo._banks[_.keys(CardInfo._banks)[0]]
 }
 
 function getBankPrefix (bank) {
@@ -31,10 +31,10 @@ function getBankPrefix (bank) {
 }
 
 function getBankWithAndWithoutSvgLogoAndCardNumber () {
-  var bankWithoutSvgLogo = _.find(CardInfo.banks, function (bank) {
+  var bankWithoutSvgLogo = _.find(CardInfo._banks, function (bank) {
     return !bank.logoSvg
   })
-  var bankWithSvgLogo = _.find(CardInfo.banks, function (bank) {
+  var bankWithSvgLogo = _.find(CardInfo._banks, function (bank) {
     return bank.logoSvg
   })
   var bankWithoutSvgLogoPrefix = getBankPrefix(bankWithoutSvgLogo)
@@ -212,24 +212,24 @@ describe('CardInfo', function () {
     })
   })
 
-  describe('.banks', function () {
+  describe('._banks', function () {
     if (typeof window === 'undefined') {
       it('should be same as banks in banks directory', function () {
         var banksWithPrefixes = require('../tasks/_read-banks')()
         var banksAndPrefixes = require('../tasks/_get-banks-and-prefixes')(banksWithPrefixes)
-        expect(_.isEqual(CardInfo.banks, banksAndPrefixes.banks)).to.be.ok()
+        expect(_.isEqual(CardInfo._banks, banksAndPrefixes.banks)).to.be.ok()
       })
     }
 
     it('should be an object', function () {
-      expect(CardInfo.banks).to.be.an('object')
+      expect(CardInfo._banks).to.be.an('object')
     })
 
     it('should be not empty', function () {
-      expect(_.keys(CardInfo.banks).length).to.be.greaterThan(1)
+      expect(_.keys(CardInfo._banks).length).to.be.greaterThan(1)
     })
 
-    _.each(CardInfo.banks, function (bank, alias) {
+    _.each(CardInfo._banks, function (bank, alias) {
       describe('.' + alias, function () {
         it('.alias should be same as described key', function () {
           expect(alias).to.be.equal(bank.alias)
@@ -320,7 +320,7 @@ describe('CardInfo', function () {
     it('each prefix should belongs to existing bank', function () {
       this.timeout(0)
       _.each(CardInfo._prefixes, function (bankAlias) {
-        expect(CardInfo.banks[bankAlias]).to.be.ok()
+        expect(CardInfo._banks[bankAlias]).to.be.ok()
       })
     })
 
@@ -359,13 +359,13 @@ describe('CardInfo', function () {
     }
   })
 
-  describe('.brands', function () {
+  describe('._brands', function () {
     it('should be an array', function () {
-      expect(CardInfo.brands).to.be.an('array')
+      expect(CardInfo._brands).to.be.an('array')
     })
 
     it('should be not empty', function () {
-      expect(CardInfo.brands.length).to.be.greaterThan(1)
+      expect(CardInfo._brands.length).to.be.greaterThan(1)
     })
 
     it('should cover each prefix of each bank', function () {
@@ -374,7 +374,7 @@ describe('CardInfo', function () {
       })
     })
 
-    _.each(CardInfo.brands, function (brand) {
+    _.each(CardInfo._brands, function (brand) {
       describe(brand.alias, function () {
         it('.alias should contain only small letters and hyphens', function () {
           expect(brand.alias).to.match(/^[a-z-]+$/)
@@ -595,16 +595,16 @@ describe('CardInfo', function () {
   })
 
   describe('._addBanks()', function () {
-    it('should add banks to CardInfo.banks', function () {
-      var savedBanks = _.clone(CardInfo.banks)
+    it('should add banks to CardInfo._banks', function () {
+      var savedBanks = _.clone(CardInfo._banks)
       var newBanks = {
         'ru-bank1': { alias: 'ru-bank1' },
         'ru-bank2': { alias: 'ru-bank2' }
       }
-      var expectedBanks = _.assign({}, CardInfo.banks, newBanks)
+      var expectedBanks = _.assign({}, CardInfo._banks, newBanks)
       CardInfo._addBanks(newBanks)
-      expect(CardInfo.banks).to.eql(expectedBanks)
-      CardInfo.banks = savedBanks
+      expect(CardInfo._banks).to.eql(expectedBanks)
+      CardInfo._banks = savedBanks
     })
   })
 
@@ -624,7 +624,7 @@ describe('CardInfo', function () {
 
   describe('.addBanksAndPrefixes()', function () {
     it('should add banks and prefixes', function () {
-      var savedBanks = _.clone(CardInfo.banks)
+      var savedBanks = _.clone(CardInfo._banks)
       var savedPrefixes = _.clone(CardInfo._prefixes)
       var newBanks = {
         'ru-bank1': { alias: 'ru-bank1' },
@@ -638,13 +638,13 @@ describe('CardInfo', function () {
         banks: newBanks,
         prefixes: newPrefixes
       }
-      var expectedBanks = _.assign({}, CardInfo.banks, newBanks)
+      var expectedBanks = _.assign({}, CardInfo._banks, newBanks)
       var expectedPrefixes = _.assign({}, CardInfo._prefixes, newPrefixes)
       CardInfo.addBanksAndPrefixes(newBanksAndPrefixes)
-      expect(CardInfo.banks).to.eql(expectedBanks)
+      expect(CardInfo._banks).to.eql(expectedBanks)
       expect(CardInfo._prefixes).to.eql(expectedPrefixes)
       CardInfo._prefixes = savedPrefixes
-      CardInfo.banks = savedBanks
+      CardInfo._banks = savedBanks
     })
   })
 
@@ -656,6 +656,28 @@ describe('CardInfo', function () {
       CardInfo.setDefaultOptions(newOptions)
       expect(CardInfo.defaultOptions).to.eql(expectedDefaultOptions)
       CardInfo.setDefaultOptions(savedDefaultOptions)
+    })
+  })
+
+  describe('.getBanks()', function () {
+    it('should return array of banks', function () {
+      expect(CardInfo.getBanks()).to.be.an('array')
+      expect(CardInfo.getBanks().length).to.equal(_.keys(CardInfo._banks).length)
+    })
+  })
+
+  describe('.getBrands()', function () {
+    it('should return array of brands', function () {
+      expect(CardInfo.getBrands()).to.be.an('array')
+      expect(CardInfo.getBrands().length).to.equal(CardInfo._brands.length)
+      var keys = [
+        'alias', 'name', 'codeName', 'codeLength', 'gaps', 'lengths', 'pattern', 'blocks', 'mask',
+        'logoColoredPng', 'logoColoredSvg', 'logoColored', 'logoBlackPng', 'logoBlackSvg',
+        'logoBlack', 'logoWhitePng', 'logoWhiteSvg', 'logoWhite'
+      ]
+      _.each(CardInfo.getBrands(), function (brand, bi) {
+        expect(brand).to.only.have.keys(keys)
+      })
     })
   })
 

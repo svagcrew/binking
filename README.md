@@ -144,10 +144,12 @@ CardInfo.setDefaultOptions({
 ## Static methods
 * **`CardInfo.setDefaultOptions(options)`**  
   Once the default settings are set, they will be applied each time the instance is created.
-
-## Static properties
-* **`CardInfo.banks`**  
-  The object with the data for each bank. Keys are short names of banks (`bankAlias`).
+* **`CardInfo.getBrands()`**  
+  **`CardInfo.getBrands(options)`**  
+  Array with all brands.
+* **`CardInfo.getBanks()`**  
+  **`CardInfo.getBanks(options)`**  
+  Array with all banks.
 
 ## Ways of connecting
 1. Connect the main file. In this case, you download the entire database of banks.

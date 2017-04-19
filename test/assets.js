@@ -35,7 +35,7 @@ describe('bank logo', () => {
 })
 
 describe('brand logo', () => {
-  for (const brandData of CardInfo.brands) {
+  for (const brandData of CardInfo._brands) {
     for (const extname of ['png', 'svg']) {
       for (const style of ['colored', 'white', 'black']) {
         const logoPath = path.resolve(rootPath, 'dist', 'brands-logos', brandData.alias + '-' + style + '.' + extname)
@@ -57,7 +57,7 @@ describe('brand logo', () => {
 
     const brandAlias = path.basename(logoPath, extname).split('-').slice(0, -1).join('-')
     it(`${logoPathRelative} should belongs to existing brand ${brandAlias}`, () => {
-      const brandData = _.find(CardInfo.brands, { alias: brandAlias })
+      const brandData = _.find(CardInfo._brands, { alias: brandAlias })
       expect(brandData).to.be.ok()
     })
   }

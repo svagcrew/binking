@@ -187,10 +187,12 @@
     for (var i = 1; i < arguments.length; i++) {
       var objSource = arguments[i]
       for (var key in objSource) {
-        if (objSource[key] instanceof Array) {
-          objTarget[key] = CardInfo._assign([], objSource[key])
-        } else {
-          objTarget[key] = objSource[key]
+        if (objSource.hasOwnProperty(key)) {
+          if (objSource[key] instanceof Array) {
+            objTarget[key] = CardInfo._assign([], objSource[key])
+          } else {
+            objTarget[key] = objSource[key]
+          }
         }
       }
     }
@@ -295,14 +297,16 @@
     var exts = ['png', 'svg']
     var extsCapitalized = ['Png', 'Svg']
     for (var bi in this._banks) {
-      var bank = CardInfo._assign({}, this._banks[bi])
-      for (var ei = 0; ei < exts.length; ei++) {
-        var logoKey = 'logo' + extsCapitalized[ei]
-        if (bank[logoKey]) bank[logoKey] = CardInfo._getLogo(options.banksLogosPath, bank[logoKey])
+      if (this._banks.hasOwnProperty(bi)) {
+        var bank = CardInfo._assign({}, this._banks[bi])
+        for (var ei = 0; ei < exts.length; ei++) {
+          var logoKey = 'logo' + extsCapitalized[ei]
+          if (bank[logoKey]) bank[logoKey] = CardInfo._getLogo(options.banksLogosPath, bank[logoKey])
+        }
+        bank.backgroundGradient = CardInfo._getGradient(bank.backgroundColors, options.gradientDegrees)
+        bank.logo = CardInfo._getLogoByPreferredExt(bank.logoPng, bank.logoSvg, options.preferredExt)
+        banks.push(bank)
       }
-      bank.backgroundGradient = CardInfo._getGradient(bank.backgroundColors, options.gradientDegrees)
-      bank.logo = CardInfo._getLogoByPreferredExt(bank.logoPng, bank.logoSvg, options.preferredExt)
-      banks.push(bank)
     }
     return banks
   }

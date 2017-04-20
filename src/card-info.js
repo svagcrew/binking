@@ -205,9 +205,11 @@
   }
 
   CardInfo._getBrand = function (number) {
+    var brands = []
     for (var i = 0; i < this._brands.length; i++) {
-      if (this._brands[i].pattern.test(number)) return this._brands[i]
+      if (this._brands[i].pattern.test(number)) brands.push(this._brands[i])
     }
+    if (brands.length === 1) return brands[0]
   }
 
   CardInfo._getLogo = function (dirname, basename, extname) {

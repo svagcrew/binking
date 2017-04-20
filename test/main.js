@@ -487,6 +487,10 @@ describe('CardInfo', function () {
       expect(CardInfo._getBrand(getBrandPrefix())).to.equal(getBrand())
     })
 
+    it('should return undefined if card number suitable for several brands', function () {
+      expect(CardInfo._getBrand('5')).to.equal(undefined)
+    })
+
     it('should return undefined if brand not found', function () {
       expect(CardInfo._getBrand('')).to.equal(undefined)
     })

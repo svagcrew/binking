@@ -1,5 +1,8 @@
 # CardInfo.js
-[![Build Status](https://travis-ci.org/iserdmi/card-info.svg?branch=master)](https://travis-ci.org/iserdmi/card-info)
+[![Travis](https://img.shields.io/travis/iserdmi/card-info.svg)]()
+[![Codacy grade](https://img.shields.io/codacy/grade/1b21b26b882b43b592e8a04c43b6b7db.svg)]()
+[![Bower](https://img.shields.io/bower/v/card-info.svg)]()
+[![npm](https://img.shields.io/npm/v/card-info.svg)]()
 
 CardInfo.js позволяет по номеру карты получить логотип банка и типа, фирменные цвета и прочее. Используйте эти данные, чтобы верстать красивые формы для приёма банковских карт. В базе сейчас 49 самых популярных российских банков, скоро будут добавлены банки США, Канады, Англии, Австралии и Новой Зеландии. Поиграться с примером формы можно [на демо-странице.](http://srdm.io/демо/card-info)
 

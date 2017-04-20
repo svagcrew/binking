@@ -1,5 +1,8 @@
 # CardInfo.js
-[![Build Status](https://travis-ci.org/iserdmi/card-info.svg?branch=master)](https://travis-ci.org/iserdmi/card-info)
+[![Travis](https://img.shields.io/travis/iserdmi/card-info.svg)]()
+[![Codacy grade](https://img.shields.io/codacy/grade/1b21b26b882b43b592e8a04c43b6b7db.svg)]()
+[![Bower](https://img.shields.io/bower/v/card-info.svg)]()
+[![npm](https://img.shields.io/npm/v/card-info.svg)]()
 
 CardInfo.js allows you to get the logo of the bank and brand, brand colors and etc. by card number. Use this data to make beautiful forms for bank cards. The database currently has 49 most popular Russian banks, soon will be added banks for United States, Canada, England, Australia and New Zealand. You can play with the example of the form [on the demo page.](http://srdm.io/demo/card-info)
 

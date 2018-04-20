@@ -1144,7 +1144,8 @@
       "text": "#0a2972",
       "alias": "ru-vtb24",
       "country": "ru",
-      "logoPng": "ru-vtb24.png"
+      "logoPng": "ru-vtb24.png",
+      "logoSvg": "ru-vtb24.svg"
     },
     "ru-zenit": {
       "name": "Зенит",

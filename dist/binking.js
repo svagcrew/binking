@@ -1,7 +1,7 @@
 /*
- * binking v1.0.9
+ * binking v2.0.0
  * Get bank logo, colors, phone, brand, validation and etc. by card number
- * https://github.com/union-1/binking.git
+ * https://github.com/iserdmi/binking.git
  * by BinKing (https://binking.io)
  */
 
@@ -223,19 +223,19 @@
   }
 
   binking.validationErrors = {
-    CARD_NUMBER_REQUIRED: 'Укажите номер вашей банковской карты',
-    CARD_NUMBER_INVALID: 'Номер карты содержит недопустимые символы',
-    CARD_NUMBER_INCOMPLETE: 'Номер карты заполнен не до конца',
-    CARD_NUMBER_OVERCOMPLETE: 'В номере карты слишком много символов',
-    CARD_NUMBER_LUHN: 'В номере карты содержится опечатка',
-    MONTH_REQUIRED: 'Укажите месяц истечения карты',
-    MONTH_INVALID: 'Ошибка в месяце истечения карты',
-    YEAR_REQUIRED: 'Укажите год истечения карты',
-    YEAR_INVALID: 'Ошибка в годе истечения карты',
-    YEAR_IN_PAST: 'Год указан в прошедшем времени',
-    MONTH_IN_PAST: 'Месяц указан в прошедшем времени',
-    CODE_REQUIRED: 'Укажите код безопасности',
-    CODE_INVALID: 'Код безопасности указан неверно'
+    CARD_NUMBER_REQUIRED: 'Indicate your bank card number',
+    CARD_NUMBER_INVALID: 'Card number contains invalid symbols',
+    CARD_NUMBER_INCOMPLETE: 'Card number entry is incomplete',
+    CARD_NUMBER_OVERCOMPLETE: 'Card number input exceeds allowable number of symbols',
+    CARD_NUMBER_LUHN: 'Card number entry contains typo',
+    MONTH_REQUIRED: 'Indicate card expiry date',
+    MONTH_INVALID: 'Error in card expiry date',
+    YEAR_REQUIRED: 'Indicate year of card expiry',
+    YEAR_INVALID: 'Error in year of card expiry',
+    YEAR_IN_PAST: 'Year of card expiry can not be in the past',
+    MONTH_IN_PAST: 'Month of card expiry can not be in the past',
+    CODE_REQUIRED: 'Please indicate security code',
+    CODE_INVALID: 'Security code is invalid'
   }
 
   binking._isValidByLuhn = function (cardNumberNormalized) {

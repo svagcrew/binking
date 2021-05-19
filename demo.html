@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>BinKing JS Plugin Demo</title>
+  <style>
+    body {
+      margin: 10px;
+      padding: 0;
+      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .binking {
+      font-size: 16px;
+    }
+
+    .binking__form.binking__hide {
+      display: none;
+    }
+
+    .binking__success.binking__hide {
+      display: none;
+    }
+
+    .binking__title {
+      font-size: 1.4em;
+      margin: 0;
+      margin-bottom: 0.4em;
+    }
+
+    .binking__panels {
+      width: 500px;
+      height: 260px;
+      position: relative;
+    }
+
+    .binking__panel {
+      position: absolute;
+      width: 370px;
+      height: 230px;
+      border-radius: 15px;
+    }
+
+    .binking__front-panel {
+      background: #eeeeee;
+      color: #000;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      transition: background-color 150ms ease;
+    }
+
+    .binking__form-bank-logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 20px 27px 0;
+      width: 100%;
+      height: 68px;
+      object-fit: contain;
+      object-position: 0 0;
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+
+    .binking__form-bank-logo.binking__hide {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .binking__form-brand-logo {
+      position: absolute;
+      bottom: 26px;
+      right: 27px;
+      text-align: right;
+      height: 36px;
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+
+    .binking__form-brand-logo.binking__hide {
+      opacity: 0;
+      transform: scale(0.8)
+    }
+
+    .binking__front-fields {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 26px;
+    }
+
+    .binking__number-field {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .binking__date-label {
+      margin-bottom: 6px;
+      transition: color 150ms ease;
+    }
+
+    .binking__date-field {
+      display: inline-block;
+      width: 51px;
+    }
+
+    .binking__month-field {
+      margin-right: 10px;
+    }
+
+    .binking__back-panel {
+      bottom: 0;
+      right: 0;
+      background: #bbb;
+    }
+
+    .binking__back-panel:before {
+      content: '';
+      position: absolute;
+      top: 26px;
+      background: #444;
+      width: 100%;
+      height: 60px;
+      left: 0;
+    }
+
+    .binking__code-field {
+      position: absolute;
+      bottom: 77px;
+      right: 26px;
+      width: 80px;
+    }
+
+    .binking__code-label {
+      position: absolute;
+      width: 80px;
+      right: 26px;
+      bottom: 34px;
+    }
+
+    .binking__field {
+      padding: 6px 10px;
+      font-family: Courier, monospace;
+      font-size: 20px;
+      text-indent: 2px;
+      border: 1px solid #333;
+      transition: border-color 150ms ease;
+    }
+
+    .binking__field:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .binking__label {
+      display: block;
+    }
+
+    .binking__save-card {
+      display: flex;
+      flex-flow: row nowrap;
+      margin-top: 0.5em;
+    }
+
+    .binking__save-card-checkbox {
+      margin-right: 6px;
+    }
+
+    .binking__saved-cards {
+      margin-top: 1.5em;
+    }
+
+    .binking__saved-cards.binking__hide {
+      display: none;
+    }
+
+    .binking__cards {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-start;
+      margin-right: -1em;
+      margin-bottom: -1em;
+    }
+
+    .binking__cards.binking__disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .binking__card {
+      height: 60px;
+      padding: 10px;
+      background: #eeeeee;
+      border-radius: 10px;
+      margin-bottom: 1em;
+      margin-right: 1em;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .binking__card.binking__selected {
+      box-shadow: inset 0 0 0 3px #00c;
+    }
+
+    .binking__card-bank-logo {
+      object-fit: contain;
+      object-position: 50% 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+    }
+
+    .binking__card-last4 {
+      white-space: nowrap;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    .binking__card-brand-logo {
+      height: 20px;
+    }
+
+    .binking__form-bottom {
+      margin-top: 1em;
+    }
+
+    .binking__error {
+      margin-bottom: 0.5em;
+      color: #c00;
+    }
+
+    .binking__error.binking__hide {
+      display: none;
+    }
+
+    .binking__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.7em;
+      padding: .5em 1.5em;
+      text-decoration: none;
+      font-size: 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      -webkit-transition: opacity .1s ease;
+      transition: opacity .1s ease;
+      background: #1e9800;
+      background: -webkit-gradient(linear, left bottom, left top, from(#1b8900), to(#28cb00));
+      background: linear-gradient(0deg, #1b8900, #28cb00);
+      box-shadow: inset 0 6px 8px -2px #2de500, inset 0 -3px 5px -3px #051900;
+      text-shadow: 1px 1px #177400;
+      color: #fff
+    }
+
+    .binking__button:hover {
+      background: -webkit-gradient(linear, left bottom, left top, from(#1e9800), to(#2de500));
+      background: linear-gradient(0deg, #1e9800, #2de500)
+    }
+
+    .binking__button:active {
+      background: -webkit-gradient(linear, left bottom, left top, from(#28cb00), to(#1b8900));
+      background: linear-gradient(0deg, #28cb00, #1b8900);
+      box-shadow: inset 0 6px 8px -2px #28cb00, inset 0 -2px 8px -3px #000
+    }
+
+    .binking__button.binking__loading {
+      pointer-events: none;
+      opacity: .5;
+      color: transparent;
+      text-shadow: none;
+    }
+
+    .binking__button.binking__loading:after {
+      content: "";
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-indent: -9999em;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-animation: binking__spin 1.1s linear infinite;
+      animation: binking__spin 1.1s linear infinite;
+      border: 5px solid hsla(0, 0%, 100%, .2);
+      border-left-color: #fff;
+      width: 30px;
+      height: 30px;
+      left: 50%;
+      margin-left: -20px;
+      top: 50%;
+      margin-top: -20px;
+    }
+
+    .binking__button:disabled {
+      pointer-events: none;
+      opacity: .5
+    }
+
+    @-webkit-keyframes binking__spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+      }
+      to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+      }
+    }
+
+    @keyframes binking__spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+      }
+      to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+      }
+    }
+
+    .binking__hint {
+      line-height: 1.5;
+    }
+
+    @media (max-width: 540px) {
+      .binking__panels {
+        width: 386px;
+        height: 300px;
+      }
+      .binking__code-field {
+        bottom: 16px;
+      }
+      .binking__code-label {
+        text-align: right;
+        right: 115px;
+        bottom: 17px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .binking {
+        font-size: 14px;
+      }
+      .binking__panels {
+        width: 300px;
+        height: 243px;
+      }
+      .binking__panel {
+        width: 290px;
+        height: 180px;
+        border-radius: 10px;
+      }
+      .binking__form-bank-logo {
+        padding: 15px 16px 0;
+        height: 57px;
+      }
+      .binking__form-brand-logo {
+        bottom: 16px;
+        right: 17px;
+        height: 30px;
+      }
+      .binking__front-fields {
+        padding: 16px;
+      }
+      .binking__number-field {
+        margin-bottom: 12px;
+      }
+      .binking__date-label {
+        margin-bottom: 4px;
+      }
+      .binking__date-field {
+        width: 45px;
+      }
+      .binking__month-field {
+        margin-right: 10px;
+      }
+      .binking__code-field {
+        bottom: 16px;
+        width: 62px;
+      }
+      .binking__code-label {
+        right: 97px;
+        bottom: 16px;
+      }
+      .binking__back-panel:before {
+        top: 16px;
+        height: 60px;
+      }
+      .binking__field {
+        padding: 6px 10px;
+        font-size: 14px;
+        text-indent: 2px;
+      }
+    }
+
+    .tippy-tooltip.custom-theme {
+      background-color: #c00;
+      color: #ffffff;
+    }
+
+    .tippy-tooltip.custom-theme[data-placement^='top'] .tippy-arrow {
+      border-top-color: #c00;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hint">
+    <p>
+      Форма работает в тестовом режиме и не отправляет данные на
+      сервер, при нажатии на кнопку «Оплатить» будет выведено
+      сообщение, якобы платёж был отклонён вашим банком.
+    </p>
+    <p>
+      Укажите в коде безопасности 777, чтобы увидеть
+      сообщение об успешной оплате.
+    </p><p>
+      Можете ввести свой номер карты, можете вставить один из
+      заготовленных: 4023330000000006, 5536910000000002 или 6777210000000003.
+    </p>
+  </div>
+
+  <div class="binking">
+    <form class="binking__form">
+      <h2 class="binking__title">Введите данные карты для оплаты</h2>
+      <div class="binking__panels">
+        <div class="binking__panel binking__front-panel">
+          <img class="binking__form-bank-logo binking__hide">
+          <img class="binking__form-brand-logo binking__hide">
+          <div class="binking__front-fields">
+            <input name="cardnumber" autocomplete="cc-number" inputmode="numeric" pattern="[0-9 ]*" class="binking__field binking__number-field" type="text" placeholder="0000 0000 0000 0000">
+            <label class="binking__label binking__date-label">Valid thru</label>
+            <input name="ccmonth" autocomplete="cc-exp-month" inputmode="numeric" pattern="[0-9]*" class="binking__field binking__month-field binking__date-field" type="text" placeholder="MM">
+            <input name="ccyear" autocomplete="cc-exp-year" inputmode="numeric" pattern="[0-9]*" class="binking__field binking__year-field binking__date-field" type="text" placeholder="YY">
+          </div>
+        </div>
+        <div class="binking__panel binking__back-panel">
+          <input name="cvc" autocomplete="cc-csc" inputmode="numeric" pattern="[0-9]*" class="binking__field binking__code-field" type="password">
+          <label class="binking__label binking__code-label">Safety<br>code</label>
+        </div>
+      </div>
+      <label class="binking__save-card">
+        <input class="binking__save-card-checkbox" name="save" type="checkbox" /> <span>Сохранить карту для последующих платежей</span>
+      </label>
+      <div class="binking__saved-cards binking__hide">
+        <h2 class="binking__title">Или выберите одну из сохранённых карт</h2>
+        <div class="binking__cards">
+        </div>
+      </div>
+      <div class="binking__form-bottom">
+        <p class="binking__error binking__hide"></p>
+        <button class="binking__submit-button binking__button" type="submit">Оплатить</button>
+      </div>
+    </form>
+    <div class="binking__success binking__hide">
+      <h2 class="binking__title">Оплата произведена успешно</h2>
+      <button class="binking__reset-button binking__button" type="submit">Вернуться к форме оплаты</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/imask@6"></script>
+  <script src="https://unpkg.com/popper.js@1"></script>
+  <script src="https://unpkg.com/tippy.js@5"></script>
+  <script src="index.js"></script>
+
+  <script>
+    ;(function () {
+      function initBinking () {
+        // Choose strategy:
+
+        // Api strategy examaple settings:
+        binking.setDefaultOptions({
+          strategy: 'api',
+          apiKey: 'cbc67c2bdcead308498918a694bb8d77' // Replace it with your API key
+          // sandbox: true
+        })
+
+        // Archive strategy example settings:
+        // binking.setDefaultOptions({
+        //   strategy: "archive",
+        //   banksLogosPath: 'banks-logos/',
+        //   brandsLogosPath: 'brands-logos/',
+        // });
+        // binking.addBanks({
+        //   "ru-sberbank": {
+        //     bankAlias: "ru-sberbank",
+        //     bankName: "Sberbank",
+        //     bankLocalName: "Сбербанк",
+        //     bankColor: "#1a9f29",
+        //     bankColors: ["#1a9f29"],
+        //     bankCountry: "ru",
+        //     bankSite: "https://www.sberbank.ru",
+        //     bankPhone: "8 800 555-55-50",
+        //     formBackgroundColor: "#1a9f29",
+        //     formBackgroundColors: ["#1a9f29", "#0d7518"],
+        //     formBackgroundLightness: "dark",
+        //     formTextColor: "#ffffff",
+        //     formLogoScheme: "inverted",
+        //     formBorderColor: "#ffffff"
+        //   },
+        //   "ru-rosbank": {
+        //     bankAlias: "ru-rosbank",
+        //     bankName: "Rosbank",
+        //     bankLocalName: "Росбанк",
+        //     bankColor: "#ff0016",
+        //     bankColors: ["#ff0016", "#000000"],
+        //     bankCountry: "ru",
+        //     bankSite: "https://www.rosbank.ru",
+        //     bankPhone: "8 800 200-54-34",
+        //     formBackgroundColor: "#f0f0f0",
+        //     formBackgroundColors: ["#f0f0f0", "#d6d0d0"],
+        //     formBackgroundLightness: "light",
+        //     formTextColor: "#000000",
+        //     formLogoScheme: "original",
+        //     formBorderColor: "#d6d0d0"
+        //   }
+        // });
+        // binking.addBins({
+        //   "402333": "ru-sberbank",
+        //   "546918": "ru-sberbank",
+        //   "400812": "ru-rosbank",
+        //   "677721": "ru-rosbank"
+        // });
+      }
+
+      function initValidationTips () {
+        tippy.setDefaultProps({
+          trigger: 'manual',
+          hideOnClick: false,
+          theme: 'custom',
+          distance: 8
+        })
+        cardNumberTip = tippy($cardNumberField)
+        monthTip = tippy($monthField)
+        yearTip = tippy($yearField)
+        codeTip = tippy($codeField)
+      }
+
+      function initMasks () {
+        cardNumberMask = IMask($cardNumberField, {
+          mask: binking.defaultResult.cardNumberMask
+        })
+        monthMask = IMask($monthField, {
+          mask: IMask.MaskedRange,
+          from: 1,
+          to: 12,
+          maxLength: 2,
+          autofix: true
+        })
+        yearMask = IMask($yearField, {
+          mask: '00'
+        })
+        codeMask = IMask($codeField, {
+          mask: '0000'
+        })
+      }
+
+      function showSavedCards () {
+        if (savedCards.length) {
+          var banksAliases = savedCards.map(function (card) {
+            return card.bankAlias
+          })
+          binking.getBanks(banksAliases, function (result) {
+            savedCardsBanks = result
+            var savedCardsListHtml = savedCards.reduce(function (acc, card, i) {
+              if (result[i]) {
+                return acc += '<div class="binking__card" data-index="' + i + '">' +
+                '<img class="binking__card-bank-logo" src="' + result[i].bankLogoSmallOriginalSvg + '" />' +
+                '<div class="binking__card-last4">... ' + card.last4 + '</div>' +
+                '<img class="binking__card-brand-logo" src="' + binking.getBrandLogo(card.brandAlias) + '" />' +
+                '</div>'
+              }
+              return acc += '<div class="binking__card" data-index="' + i + '">' +
+                '<div class="binking__card-last4">... ' + card.last4 + '</div>' +
+                '<img class="binking__card-brand-logo" src="' + binking.getBrandLogo(card.brandAlias) + '" />' +
+                '</div>'
+            }, '')
+            $savedCardsList.innerHTML += savedCardsListHtml
+            $savedCardsSection.classList.remove('binking__hide')
+          })
+        }
+      }
+
+      function validate () {
+        var validationResult = binking.validate($cardNumberField.value, $monthField.value, $yearField.value, $codeField.value)
+        if (validationResult.errors.cardNumber && cardNumberTouched) {
+          cardNumberTip.setContent(validationResult.errors.cardNumber.message)
+          cardNumberTip.show()
+        } else {
+          cardNumberTip.hide()
+        }
+        var monthHasError = validationResult.errors.month && monthTouched
+        if (monthHasError) {
+          monthTip.setContent(validationResult.errors.month.message)
+          monthTip.show()
+        } else {
+          monthTip.hide()
+        }
+        if (!monthHasError && validationResult.errors.year && yearTouched) {
+          yearTip.setContent(validationResult.errors.year.message)
+          yearTip.show()
+        } else {
+          yearTip.hide()
+        }
+        if (validationResult.errors.code && codeTouched) {
+          codeTip.setContent(validationResult.errors.code.message)
+          codeTip.show()
+        } else {
+          codeTip.hide()
+        }
+        return validationResult
+      }
+
+      function deselectCards () {
+        selectedCardIndex = null
+        var $cards = document.querySelectorAll('.binking__card')
+        $cards.forEach(function ($card) {
+          $card.classList.remove('binking__selected')
+        })
+      }
+
+      function findAncestor (el, sel) {
+        if ((el.matches || el.matchesSelector).call(el, sel)) return el
+        while ((el = el.parentElement) && !((el.matches || el.matchesSelector).call(el, sel)));
+        return el
+      }
+
+      function resetForm () {
+        deselectCards()
+        $error.classList.add('binking__hide')
+        cardNumberTouched = false
+        monthTouched = false
+        yearTouched = false
+        codeTouched = false
+        cardNumberMask.unmaskedValue = ''
+        monthMask.unmaskedValue = ''
+        yearMask.unmaskedValue = ''
+        codeMask.unmaskedValue = ''
+        $saveCardField.checked = false
+        $form.classList.remove('binking__hide')
+        $success.classList.add('binking__hide')
+      }
+
+      function cardNumberChangeHandler () {
+        binking($cardNumberField.value, function (result) {
+          newCardInfo = result
+          cardNumberMask.updateOptions({
+            mask: result.cardNumberMask
+          })
+          $frontPanel.style.background = result.formBackgroundColor
+          $frontPanel.style.color = result.formTextColor
+          $frontFields.forEach(function (field) {
+            field.style.borderColor = result.formBorderColor
+          })
+          $codeField.placeholder = result.codeName || ''
+          if (result.formBankLogoBigSvg) {
+            $bankLogo.src = result.formBankLogoBigSvg
+            $bankLogo.classList.remove('binking__hide')
+          } else {
+            $bankLogo.classList.add('binking__hide')
+          }
+          if (result.formBrandLogoSvg) {
+            $brandLogo.src = result.formBrandLogoSvg
+            $brandLogo.classList.remove('binking__hide')
+          } else {
+            $brandLogo.classList.add('binking__hide')
+          }
+          var validationResult = validate()
+          var isFulfilled = result.cardNumberNormalized.length >= result.cardNumberMinLength
+          var isChanged = prevNumberValue !== $cardNumberField.value
+          if (isChanged && isFulfilled) {
+            if (validationResult.errors.cardNumber) {
+              cardNumberTouched = true
+              validate()
+            } else {
+              $monthField.focus()
+            }
+          }
+          prevNumberValue = $cardNumberField.value
+        })
+      }
+
+      function cardNumberFocusHandler () {
+        deselectCards()
+      }
+
+      function cardNumberBlurHandler () {
+        cardNumberTouched = true
+        validate()
+      }
+
+      function monthChangeHandler () {
+        var validationResult = validate()
+        if (prevMonthValue !== $monthField.value && $monthField.value.length >= 2) {
+          if (validationResult.errors.month) {
+            monthTouched = true
+            validate()
+          } else {
+            $yearField.focus()
+          }
+        }
+        prevMonthValue = $monthField.value
+      }
+
+      function monthFocusHandler () {
+        deselectCards()
+      }
+
+      function monthBlurHandler () {
+        if ($monthField.value.length === 1) {
+          monthMask.unmaskedValue = '0' + $monthField.value
+        }
+        monthTouched = true
+        validate()
+      }
+
+      function yearChangeHandler () {
+        var validationResult = validate()
+        if (prevYearValue !== $yearField.value && $yearField.value.length >= 2) {
+          if (validationResult.errors.year) {
+            yearTouched = true
+            validate()
+          } else {
+            $codeField.focus()
+          }
+        }
+        prevYearValue = $yearField.value
+      }
+
+      function yearFocusHandler () {
+        deselectCards()
+      }
+
+      function yearBlurHandler () {
+        yearTouched = true
+        validate()
+      }
+
+      function codeChangeHandler () {
+        validate()
+      }
+
+      function codeFocusHandler () {
+        deselectCards()
+      }
+
+      function codeBlurHandler () {
+        codeTouched = true
+        validate()
+      }
+
+      function savedCardsListClickHandler (e) {
+        e.preventDefault()
+        var $card = findAncestor(e.target, '.binking__card')
+        if (!$card) return
+        deselectCards()
+        var index = $card.getAttribute('data-index')
+        selectedCardIndex = index
+        $card.classList.add('binking__selected')
+      }
+
+      function formSubmitHandler (e) {
+        e.preventDefault()
+        if (sending) return
+        var formData
+        if (selectedCardIndex !== null) {
+          formData = savedCards[selectedCardIndex]
+          console.log('Pay with saved credit card', formData)
+        } else {
+          cardNumberTouched = true
+          monthTouched = true
+          yearTouched = true
+          codeTouched = true
+          var validationResult = validate()
+          if (validationResult.hasErrors) {
+            $error.classList.remove('binking__hide')
+            $error.innerHTML = 'Check card form fields'
+            return
+          }
+          formData = {
+            cardNumber: cardNumberMask.unmaskedValue,
+            month: $monthField.value,
+            year: $yearField.value,
+            code: $codeField.value,
+            save: $saveCardField.checked
+          }
+          console.log('Pay with new credit card', formData)
+        }
+        $error.classList.add('binking__hide')
+        sending = true
+        $submitButton.classList.add('binking__loading')
+        $savedCardsList.classList.add('binking__disabled')
+        $submitButton.disabled = true
+        $cardNumberField.disabled = true
+        $monthField.disabled = true
+        $yearField.disabled = true
+        $codeField.disabled = true
+        $saveCardField.disabled = true
+        setTimeout(function () {
+          sending = false
+          $savedCardsList.classList.remove('binking__disabled')
+          $submitButton.classList.remove('binking__loading')
+          $submitButton.disabled = false
+          $cardNumberField.disabled = false
+          $monthField.disabled = false
+          $yearField.disabled = false
+          $codeField.disabled = false
+          $saveCardField.disabled = false
+          if (selectedCardIndex === null && $codeField.value === '777') {
+            $form.classList.add('binking__hide')
+            $success.classList.remove('binking__hide')
+            $submitButton.classList.remove('binking__loading')
+          } else {
+            var bankInfo = selectedCardIndex !== null ? savedCardsBanks[selectedCardIndex] : newCardInfo || null
+            $error.innerHTML = bankInfo && bankInfo.bankPhone
+              ? 'Ваш банк отклонил операцию по указанной карте. Позвоните в ' + bankInfo.bankLocalName + ' по номеру ' + bankInfo.bankPhone + ', чтобы устранить причину.'
+              : 'Ваш банк отклонил операцию по указанной карте.'
+            $error.classList.remove('binking__hide')
+          }
+        }, 1000)
+      }
+
+      function resetButtonClickHandler () {
+        resetForm()
+      }
+
+      var $form = document.querySelector('.binking__form')
+      var $success = document.querySelector('.binking__success')
+      var $submitButton = document.querySelector('.binking__submit-button')
+      var $resetButton = document.querySelector('.binking__reset-button')
+      var $frontPanel = document.querySelector('.binking__front-panel')
+      var $bankLogo = document.querySelector('.binking__form-bank-logo')
+      var $brandLogo = document.querySelector('.binking__form-brand-logo')
+      var $cardNumberField = document.querySelector('.binking__number-field')
+      var $codeField = document.querySelector('.binking__code-field')
+      var $monthField = document.querySelector('.binking__month-field')
+      var $yearField = document.querySelector('.binking__year-field')
+      var $saveCardField = document.querySelector('.binking__save-card-checkbox')
+      var $frontFields = document.querySelectorAll('.binking__front-fields .binking__field')
+      var $savedCardsSection = document.querySelector('.binking__saved-cards')
+      var $savedCardsList = document.querySelector('.binking__cards')
+      var $error = document.querySelector('.binking__error')
+      var prevNumberValue = $cardNumberField.value
+      var prevMonthValue = $monthField.value
+      var prevYearValue = $yearField.value
+      var selectedCardIndex = null
+      var cardNumberTouched = false
+      var monthTouched = false
+      var yearTouched = false
+      var codeTouched = false
+      var sending = false
+      var savedCardsBanks
+      var newCardInfo
+      var cardNumberTip
+      var monthTip
+      var yearTip
+      var codeTip
+      var cardNumberMask
+      var monthMask
+      var yearMask
+      var codeMask
+      var savedCards = [{
+        last4: 4421,
+        bankAlias: 'ru-sberbank',
+        brandAlias: 'mastercard'
+      }, {
+        last4: 8917,
+        bankAlias: 'ru-rosbank',
+        brandAlias: 'visa'
+      }, {
+        last4: 7712,
+        brandAlias: 'mastercard' // Example of card, where bank is undefined
+      }]
+      initBinking()
+      initMasks()
+      initValidationTips()
+      showSavedCards()
+      $cardNumberField.addEventListener('input', cardNumberChangeHandler)
+      $cardNumberField.addEventListener('focus', cardNumberFocusHandler)
+      $cardNumberField.addEventListener('blur', cardNumberBlurHandler)
+      $monthField.addEventListener('input', monthChangeHandler)
+      $monthField.addEventListener('focus', monthFocusHandler)
+      $monthField.addEventListener('blur', monthBlurHandler)
+      $yearField.addEventListener('input', yearChangeHandler)
+      $yearField.addEventListener('focus', yearFocusHandler)
+      $yearField.addEventListener('blur', yearBlurHandler)
+      $codeField.addEventListener('input', codeChangeHandler)
+      $codeField.addEventListener('focus', codeFocusHandler)
+      $codeField.addEventListener('blur', codeBlurHandler)
+      $savedCardsList.addEventListener('click', savedCardsListClickHandler)
+      $form.addEventListener('submit', formSubmitHandler)
+      $resetButton.addEventListener('click', resetButtonClickHandler)
+    })();
+  </script>
+</body>
+</html>

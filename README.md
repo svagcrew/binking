@@ -169,12 +169,16 @@ var result = binking(cardNumber, options);
 - **`bankPhone`** по умолчанию `null`  
   Телефон банка.
 - **`bankLogoBigOriginalSvg`** по умолчанию `null`  
+- **`bankLogoBigOriginalPng`** по умолчанию `null`  
   Ссылка на большой цветной логотип банка
 - **`bankLogoBigInvertedSvg`** по умолчанию `null`  
+- **`bankLogoBigInvertedPng`** по умолчанию `null`  
   Большой белый логотип банка.
 - **`bankLogoSmallOriginalSvg`** по умолчанию `null`  
+- **`bankLogoSmallOriginalPng`** по умолчанию `null`  
   Маленький, вписывающийся в квадрат, цветной логотип банка.
 - **`bankLogoSmallInvertedSvg`** по умолчанию `null`  
+- **`bankLogoSmallInvertedPng`** по умолчанию `null`  
   Маленький белый логотип банка.
 - **`bankColor`** по умолчанию `null`  
   Основной цвет банка.
@@ -192,17 +196,22 @@ var result = binking(cardNumber, options);
   Цвет текста, который хорошо будет смотреться на фоне формы.
 - **`formBorderColor`** по умолчанию `"#333333"`  
   Цвет границ для полей в форме.
-- **`formBankLogoBigSvg`** по умолчанию `null`  
+- **`formBankLogoBigSvg`** по умолчанию `null` 
+- **`formBankLogoBigPng`** по умолчанию `null`  
   Ссылка на большой логотип банка, который хорошо будет смотреться на фоне формы.
-- **`formBankLogoSmallSvg`** по умолчанию `null`  
+- **`formBankLogoSmallSvg`** по умолчанию `null`
+- **`formBankLogoSmallPng`** по умолчанию `null`    
   Ссылка на маленький логотип банка, который хорошо будет смотреться на фоне формы.
 - **`formLogoScheme`** по умолчанию `null`  
   Цветовая схема логотипа для формы "original" или "inverted".
-- **`formBrandLogoSvg`** по умолчанию `null`  
+- **`formBrandLogoSvg`** по умолчанию `null`
+- **`formBrandLogoPng`** по умолчанию `null`    
   Ссылка на логотип бренда, который хорошо будет смотреться на фоне формы.
-- **`brandLogoOriginalSvg`** по умолчанию `null`  
+- **`brandLogoOriginalSvg`** по умолчанию `null`
+- **`brandLogoOriginalPng`** по умолчанию `null`    
   Ссылка на цветной логотип бренда.
-- **`brandLogoInvertedSvg`** по умолчанию `null`  
+- **`brandLogoInvertedSvg`** по умолчанию `null` 
+- **`brandLogoInvertedPng`** по умолчанию `null`  
   Ссылка на белый логотип бренда.
 - **`brandAlias`** по умолчанию `null`  
   Короткое название типа на английском, все буквы маленькие, без пробелов.
@@ -235,9 +244,9 @@ var result = binking(cardNumber, options);
 - **`cardNumberSource`**  
   Номер карты, переданный при вызове функции.
 
-Если по номеру карты не удалось определить данные о банке, поля `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg` будут иметь значение по умолчанию.
+Если по номеру карты не удалось определить данные о банке, поля `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`,`bankLogoSmallInvertedSvg`, `bankLogoBigOriginalPng`, `bankLogoBigInvertedPng`, `bankLogoSmallOriginalPng`,`bankLogoSmallInvertedPng`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallPng`, `formBankLogoBigPng`, `formBankLogoSmallPng` будут иметь значение по умолчанию.
 
-Если по номеру карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoInvertedSvg`, `formBrandLogoSvg`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
+Если по номеру карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoInvertedSvg`, `formBrandLogoSvg`, `brandLogoOriginalPng`, `brandLogoInvertedPng`, `formBrandLogoPng`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
 
 ### Получение данных конкретного банка
 
@@ -255,7 +264,7 @@ var result = binking.getBank(bankAlias, options);
 
 В качестве `bankAlias` передайте сохранённый ранее алиас банка. Например: "ru-sberbank"
 
-В переменной `result` будет храниться объект со всеми данными о банке. Названия свойств будут такими же, как и при вызове функции `binking`, однако там не будет полей относящихся к бренду и номеру карты. Перечень возвращаемых полей: `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg`.
+В переменной `result` будет храниться объект со всеми данными о банке. Названия свойств будут такими же, как и при вызове функции `binking`, однако там не будет полей относящихся к бренду и номеру карты. Перечень возвращаемых полей: `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankLogoSmallInvertedSvg`, `bankLogoBigOriginalPng`, `bankLogoBigInvertedPng`, `bankLogoSmallOriginalPng`, `bankLogoSmallInvertedPng`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg`, `formBankLogoBigPng`, `formBankLogoSmallPng`.
 
 Если банк с указанным алиасом найден не был, будет возвращено `null`.
 
@@ -289,8 +298,10 @@ var result = binking.getBrand(brandAlias, options);
 В переменной `result` будет храниться объект со всеми данными о бренде.
 
 - **`logoOriginalSvg`** по умолчанию `null`  
+- **`logoOriginalPng`** по умолчанию `null`  
   Ссылка на цветной логотип бренда.
 - **`logoInvertedSvg`** по умолчанию `null`  
+- **`logoInvertedPng`** по умолчанию `null`  
   Ссылка на белый логотип бренда.
 - **`name`**  
   Название бренда.

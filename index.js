@@ -1,4 +1,4 @@
-(function () {
+;(function () {
   var binking = function (cardNumberSource, optionsOrCallback, callbackSource) {
     var result = binking._assign({}, binking.defaultResult)
     var optionsAndCallback = binking._getOptionsAndCallback(optionsOrCallback, callbackSource)
@@ -23,7 +23,12 @@
       }
     } else {
       if (result.cardNumberNormalized.length >= 6) {
-        var apiRequestOptions = { apiUrl: options.apiFormUrl, apiKey: options.apiKey, cardNumber: result.cardNumberNormalized.substr(0, 6), sandbox: options.sandbox }
+        var apiRequestOptions = {
+          apiUrl: options.apiFormUrl,
+          apiKey: options.apiKey,
+          cardNumber: result.cardNumberNormalized.substr(0, 6),
+          sandbox: options.sandbox
+        }
         if (callback) {
           binking._apiRequest(apiRequestOptions, function (res, err) {
             if (err) {
@@ -68,7 +73,14 @@
     if (!brand) return null
     var logoOriginalSvg = options.brandsLogosPath + brand.alias + '-original.svg'
     var logoInvertedSvg = options.brandsLogosPath + brand.alias + '-inverted.svg'
-    var brandWithLogos = binking._assign({}, brand, { logoOriginalSvg: logoOriginalSvg, logoInvertedSvg: logoInvertedSvg })
+    var logoOriginalPng = options.brandsLogosPath + brand.alias + '-original.png'
+    var logoInvertedPng = options.brandsLogosPath + brand.alias + '-inverted.png'
+    var brandWithLogos = binking._assign({}, brand, {
+      logoOriginalSvg: logoOriginalSvg,
+      logoInvertedSvg: logoInvertedSvg,
+      logoOriginalPng: logoOriginalPng,
+      logoInvertedPng: logoInvertedPng
+    })
     return brandWithLogos
   }
 
@@ -111,7 +123,12 @@
         return Promise.resolve(result)
       }
     } else {
-      var apiRequestOptions = { apiUrl: options.apiBankUrl, apiKey: options.apiKey, bankAlias: bankAlias, sandbox: options.sandbox }
+      var apiRequestOptions = {
+        apiUrl: options.apiBankUrl,
+        apiKey: options.apiKey,
+        bankAlias: bankAlias,
+        sandbox: options.sandbox
+      }
       if (callback) {
         binking._apiRequest(apiRequestOptions, function (res, err) {
           if (err) {
@@ -160,7 +177,12 @@
         return Promise.resolve(result)
       }
     } else {
-      var apiRequestOptions = { apiUrl: options.apiBanksUrl, apiKey: options.apiKey, banksAliases: banksAliases.join(','), sandbox: options.sandbox }
+      var apiRequestOptions = {
+        apiUrl: options.apiBanksUrl,
+        apiKey: options.apiKey,
+        banksAliases: banksAliases.join(','),
+        sandbox: options.sandbox
+      }
       if (callback) {
         binking._apiRequest(apiRequestOptions, function (res, err) {
           if (err) {
@@ -380,7 +402,10 @@
     }
     if (props.formBackgroundColors) {
       binking.defaultResult.formBackgroundColors = props.formBackgroundColors
-      binking.defaultResult.formBackgroundGradient = binking._getGradient(['#eeeeee', '#dddddd'], binking.defaultOptions.gradientDegrees)
+      binking.defaultResult.formBackgroundGradient = binking._getGradient(
+        ['#eeeeee', '#dddddd'],
+        binking.defaultOptions.gradientDegrees
+      )
     }
     if (props.formBackgroundLightness) {
       binking.defaultResult.formBackgroundLightness = props.formBackgroundLightness
@@ -419,8 +444,15 @@
       result.brandName = brand.name
       result.brandLogoOriginalSvg = options.brandsLogosPath + brand.alias + '-original.svg'
       result.brandLogoInvertedSvg = options.brandsLogosPath + brand.alias + '-inverted.svg'
-      var formBrandLogoBasename = binking._getFormBrandLogoBasename(result.brandAlias, options.brandLogoPolicy, result.formLogoScheme)
+      result.brandLogoOriginalPng = options.brandsLogosPath + brand.alias + '-original.png'
+      result.brandLogoInvertedPng = options.brandsLogosPath + brand.alias + '-inverted.png'
+      var formBrandLogoBasename = binking._getFormBrandLogoBasename(
+        result.brandAlias,
+        options.brandLogoPolicy,
+        result.formLogoScheme
+      )
       result.formBrandLogoSvg = options.brandsLogosPath + formBrandLogoBasename + '.svg'
+      result.formBrandLogoPng = options.brandsLogosPath + formBrandLogoBasename + '.png'
       result.codeName = brand.codeName
       result.codeMaxLength = brand.codeMaxLength
       result.codeMinLength = brand.codeMinLength
@@ -430,7 +462,11 @@
       result.cardNumberGaps = brand.gaps
     }
     result.cardNumberBlocks = binking._getBlocks(result.cardNumberGaps, result.cardNumberLengths)
-    result.cardNumberMask = binking._getMask(options.maskDigitSymbol, options.maskDelimiterSymbol, result.cardNumberBlocks)
+    result.cardNumberMask = binking._getMask(
+      options.maskDigitSymbol,
+      options.maskDelimiterSymbol,
+      result.cardNumberBlocks
+    )
     result.cardNumberNice = binking._getNumberNice(result.cardNumberNormalized, result.cardNumberGaps)
   }
 
@@ -443,6 +479,12 @@
       result.bankLogoSmallInvertedSvg = options.banksLogosPath + bank.bankAlias + '-small-inverted.svg'
       result.formBankLogoBigSvg = options.banksLogosPath + bank.bankAlias + '-big-' + bank.formLogoScheme + '.svg'
       result.formBankLogoSmallSvg = options.banksLogosPath + bank.bankAlias + '-small-' + bank.formLogoScheme + '.svg'
+      result.bankLogoBigOriginalPng = options.banksLogosPath + bank.bankAlias + '-big-original.png'
+      result.bankLogoBigInvertedPng = options.banksLogosPath + bank.bankAlias + '-big-inverted.png'
+      result.bankLogoSmallOriginalPng = options.banksLogosPath + bank.bankAlias + '-small-original.png'
+      result.bankLogoSmallInvertedPng = options.banksLogosPath + bank.bankAlias + '-small-inverted.png'
+      result.formBankLogoBigPng = options.banksLogosPath + bank.bankAlias + '-big-' + bank.formLogoScheme + '.png'
+      result.formBankLogoSmallPng = options.banksLogosPath + bank.bankAlias + '-small-' + bank.formLogoScheme + '.png'
     }
     result.formBackgroundGradient = binking._getGradient(result.formBackgroundColors, options.gradientDegrees)
     return result
@@ -761,12 +803,18 @@
     bankLogoBigInvertedSvg: null,
     bankLogoSmallOriginalSvg: null,
     bankLogoSmallInvertedSvg: null,
+    bankLogoBigOriginalPng: null,
+    bankLogoBigInvertedPng: null,
+    bankLogoSmallOriginalPng: null,
+    bankLogoSmallInvertedPng: null,
     bankColor: null,
     bankColors: null,
     brandAlias: null,
     brandName: null,
     brandLogoOriginalSvg: null,
     brandLogoInvertedSvg: null,
+    brandLogoOriginalPng: null,
+    brandLogoInvertedPng: null,
     formBackgroundColor: '#eeeeee',
     formBackgroundColors: ['#eeeeee', '#dddddd'],
     formBackgroundGradient: binking._getGradient(['#eeeeee', '#dddddd'], binking.defaultOptions.gradientDegrees),
@@ -776,6 +824,9 @@
     formBrandLogoSvg: null,
     formBankLogoBigSvg: null,
     formBankLogoSmallSvg: null,
+    formBrandLogoPng: null,
+    formBankLogoBigPng: null,
+    formBankLogoSmallPng: null,
     formLogoScheme: null,
     codeName: 'CVV',
     codeMinLength: 3,

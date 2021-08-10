@@ -1,6 +1,6 @@
 {
   "name": "binking",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Get bank logo, colors, phone, brand, validation and etc. by card number",
   "main": "dist/binking.min.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "author": {
     "name": "BinKing",
-    "email": "binkingmanager@gmail.com",
+    "email": "manager@binking.io",
     "url": "https://binking.io"
   },
   "license": "ISC",

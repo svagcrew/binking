@@ -1,0 +1,194 @@
+ function initBinking () {
+        binking.setDefaultOptions({
+          strategy: 'api',
+          apiKey: 'cbc67c2bdcead308498918a694bb8d77' // Replace it with your API key
+        })
+      }
+
+      function cardNumberChangeHandler () {
+        binking($cardNumberField.value, function (result) {
+          // …
+          if (result.formBankLogoBigSvg) {
+            $bankLogo.src = result.formBankLogoBigSvg
+            $bankLogo.classList.remove('binking__hide')
+          } else {
+            $bankLogo.classList.add('binking__hide')
+          }
+          // …
+        })
+      }
+       function cardNumberChangeHandler () {
+        binking($cardNumberField.value, function (result) {
+          // …
+          $frontPanel.style.background = result.formBackgroundColor
+          $frontPanel.style.color = result.formTextColor
+          // …
+        })
+      }
+      function cardNumberChangeHandler () {
+        binking($cardNumberField.value, function (result) {
+          // …
+          if (result.formBrandLogoSvg) {
+            $brandLogo.src = result.formBrandLogoSvg
+            $brandLogo.classList.remove('binking__hide')
+          } else {
+            $brandLogo.classList.add('binking__hide')
+          }
+          // …
+        })
+      }
+      function showSavedCards () {
+        if (savedCards.length) {
+          var banksAliases = savedCards.map(function (card) {
+            return card.bankAlias
+          })
+          binking.getBanks(banksAliases, function (result) {
+            savedCardsBanks = result
+            var savedCardsListHtml = savedCards.reduce(function (acc, card, i) {
+              if (result[i]) {
+                return acc += '<div class="binking__card" data-index="' + i + '">' +
+                '<img class="binking__card-bank-logo" src="' + result[i].bankLogoSmallOriginalSvg + '" />' +
+                '<img class="binking__card-brand-logo" src="' + binking.getBrandLogo(card.brandAlias) + '" />' +
+                '<div class="binking__card-last4">...' + card.last4 + '</div>' +
+                '<div class="binking__card-exp">' + card.expMonth + '/' + card.expYear + '</div>' +
+                '</div>'
+              }
+              return acc += '<div class="binking__card" data-index="' + i + '">' +
+                '<img class="binking__card-brand-logo" src="' + binking.getBrandLogo(card.brandAlias) + '" />' +
+                '<div class="binking__card-last4">... ' + card.last4 + '</div>' +
+                '<div class="binking__card-exp">' + card.expMonth + '/' + card.expYear + '</div>' +
+                '</div>'
+            }, '') // вывод карты, для которой не был найден банк
+            $сardsList.innerHTML = savedCardsListHtml + $сardsList.innerHTML
+          })
+        }
+      }
+      var $cardNumberField = document.querySelector('.binking__number-field')
+      $cardNumberField.focus()
+      function cardNumberChangeHandler () {
+        binking($cardNumberField.value, function (result) {
+          // …
+          var validationResult = validate()
+          var isFulfilled = result.cardNumberNormalized.length >= result.cardNumberMinLength
+          var isChanged = prevNumberValue !== $cardNumberField.value
+          if (isChanged && isFulfilled) {
+            if (validationResult.errors.cardNumber) {
+              cardNumberTouched = true
+              validate()
+            } else {
+              $monthField.focus()
+            }
+          }
+          prevNumberValue = $cardNumberField.value
+        })
+      }
+
+      function monthChangeHandler () {
+        var validationResult = validate()
+        if (prevMonthValue !== $monthField.value && $monthField.value.length >= 2) {
+          if (validationResult.errors.month) {
+            monthTouched = true
+            validate()
+          } else {
+            $yearField.focus()
+          }
+        }
+        prevMonthValue = $monthField.value
+      }
+
+      function yearChangeHandler () {
+        var validationResult = validate()
+        if (prevYearValue !== $yearField.value && $yearField.value.length >= 2) {
+          if (validationResult.errors.year) {
+            yearTouched = true
+            validate()
+          } else {
+            $codeField.focus()
+          }
+        }
+        prevYearValue = $yearField.value
+      }
+      function validate () {
+        var validationResult = binking.validate($cardNumberField.value, $monthField.value, $yearField.value, $codeField.value)
+        if (validationResult.errors.cardNumber && cardNumberTouched) {
+          cardNumberTip.setContent(validationResult.errors.cardNumber.message)
+          cardNumberTip.show()
+        } else {
+          cardNumberTip.hide()
+        }
+        var monthHasError = validationResult.errors.month && monthTouched
+        if (monthHasError) {
+          monthTip.setContent(validationResult.errors.month.message)
+          monthTip.show()
+        } else {
+          monthTip.hide()
+        }
+        if (!monthHasError && validationResult.errors.year && yearTouched) {
+          yearTip.setContent(validationResult.errors.year.message)
+          yearTip.show()
+        } else {
+          yearTip.hide()
+        }
+        if (validationResult.errors.code && codeTouched) {
+          codeTip.setContent(validationResult.errors.code.message)
+          codeTip.show()
+        } else {
+          codeTip.hide()
+        }
+        return validationResult
+      }
+      function initMasks () {
+        cardNumberMask = IMask($cardNumberField, {
+          mask: binking.defaultResult.cardNumberMask
+        })
+        monthMask = IMask($monthField, {
+          mask: IMask.MaskedRange,
+          from: 1,
+          to: 12,
+          maxLength: 2,
+          autofix: true
+        })
+        yearMask = IMask($yearField, {
+          mask: '00'
+        })
+        codeMask = IMask($codeField, {
+          mask: '0000'
+        })
+      }
+function cardNumberChangeHandler () {
+        binking($cardNumberField.value, function (result) {
+          newCardInfo = result
+          // …
+        })
+      }
+
+      function formSubmitHandler (e) {
+        // …
+        var bankInfo = selectedCardIndex !== null ? savedCardsBanks[selectedCardIndex] : newCardInfo || null
+        $error.innerHTML = bankInfo && bankInfo.bankPhone
+          ? 'Ваш банк отклонил операцию по указанной карте. Позвоните в ' + bankInfo.bankLocalName + ' по номеру ' + bankInfo.bankPhone + ', чтобы устранить причину.'
+          : 'Ваш банк отклонил операцию по указанной карте.'
+        // …
+        <div class="binking__trust-logos">
+        <img class="binking__trust-logo" src="https://static.binking.io/trust-logos/secure-connection.svg" alt="">
+        <img class="binking__trust-logo" src="https://static.binking.io/trust-logos/mastercard.svg" alt="">
+        <img class="binking__trust-logo" src="https://static.binking.io/trust-logos/mir.svg" alt="">
+        <img class="binking__trust-logo" src="https://static.binking.io/trust-logos/visa.svg" alt="">
+        <img class="binking__trust-logo" src="https://static.binking.io/trust-logos/pci-dss.svg" alt="">
+      </div>
+      <div class="binking__panel binking__front-panel">
+            <img class="binking__form-bank-logo binking__hide">
+            <img class="binking__form-brand-logo binking__hide">
+            <div class="binking__front-fields">
+              <input name="cardnumber" autocomplete="cc-number" inputmode="numeric" pattern="[0-9 ]*" class="binking__field binking__number-field" type="text" placeholder="0000 0000 0000 0000">
+              <label class="binking__label binking__date-label">Действует до</label>
+              <input name="ccmonth" autocomplete="cc-exp-month" inputmode="numeric" pattern="[0-9]*" class="binking__field binking__month-field binking__date-field" type="text" placeholder="MM">
+              <input name="ccyear" autocomplete="cc-exp-year" inputmode="numeric" pattern="[0-9]*" class="binking__field binking__year-field binking__date-field" type="text" placeholder="YY">
+            </div>
+          </div>
+          <div class="binking__panel binking__back-panel">
+            <input name="cvc" autocomplete="cc-csc" inputmode="numeric" pattern="[0-9]*" class="binking__field binking__code-field" type="password">
+            <label class="binking__label binking__code-label">Код<br>на&nbsp;обратной<br>стороне</label>
+          </div>
+        </div>
+        

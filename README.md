@@ -1,15 +1,14 @@
 # BinKing
 
-BinKing — инструмент для создания королевских форм приёма банковских карт. BinKing позволяет по номеру карты получить логотип банка, цвета, номер телефона, логотип бренда и прочее. Также BinKing помогает в валидации таких форм. Используйте BinKing, чтобы создать умную и отзывчивую форму для приёма банковских карт. Увеличьте конверсию, увеличьте лояльность пользователей, снизте нагрузку отдела поддержки.
+BinKing is a King banking card data fill-in form. BinKing allows you to get the bank logo, colors, phone number, brand logo and more by card number. BinKing also helps in the validation of these forms. Use BinKing to create a smart and responsive card acceptance form. Increase conversion, increase user loyalty, reduce the workload of the support department.
 
-Для использования плагина вам понадобится API ключ или данные из архива. Ключ и архив можно получить в личном кабинете [на сайте BinKing.](https://binking.io) Перечень доступных банков и стран смотрите [на этой странице.](https://binking.io/docs/banks)
+To use the plugin, you need an API key or data from the archive. The key and archive can be obtained in your personal account [on the BinKing website.] (Https://binking.io) See the list of available banks and countries [on this page.] (https://binking.io/docs/banks)
 
-Демонстрация использования плагина доступна на [JSFiddle.](https://jsfiddle.net/serge10d1n/9sj53x01/1/) Эта демонстрация является частью [подробного гайда по созданию платёжной формы.](https://binking.io/guide) Рассказываем и показываем, как подключить этот плагин, как сделать автоматический перенос курсора в следующее поле, как сделать валидацию формы и много другое. В тексте статьи содержится полный пример кода, который можно просто скопировать к себе и использовать. При желании вы легко сможете его доработать под свои нужды.
+Plugin demonstration is available here: [JSFiddle.](https://jsfiddle.net/serge10d1n/9sj53x01/1/) This demonstration is a part of [Creating a payment form comprehensive guide.](https://binking.io/guide) We talk about show how to apply in the plugin, how to set an automatic cursor move, how to provide a form validation, etc. Article contains full code samples, you can just copy and use it. You can easily modify it according to your needs
 
-## Быстрый старт
+## Quick start
 
-Пример данный ниже поможет сразу понять в чём тут соль и как работает основная функция плагина. Пример рассчитан на пользователей, которые собираются использовать плагин в связке с API. Другие способы настройки плагина смотрите ниже.
-
+The example given below will help you immediately understand what is special here and how the main function of the plugin works. The example is designed for users who are going to use the plugin in conjunction with the API. See below for other ways to customize the plugin.
 ```js
 import binking from "binking";
 
@@ -40,291 +39,287 @@ $cardNumberField.onkeyup = () => {
 };
 ```
 
-Если вы хотите увидеть более живой пример, пригодный для использования в реально проекте, ещё раз рекомендуем обратиться [к подробному гайу по созданию платёжной формы.](https://binking.io/guide)
+If you need more “lively” sample, suitable for a real project, again, we recommend to check out [Creating a payment form comprehensive guide.](https://binking.io/guide)
 
-## Подключение плагина
+## Plugin apply
 
-Можете установить плагин с помощью `$ yarn add binking` или `$ npm i binking --save` после чего импортируйте его в своём коде
+You can apply the plugin with `$ yarn add binking` or `$ npm i binking --save` and then import it in your code
 
 ```js
 import binking from "binking";
 ```
 
-Можете подключить используя ссылку CDN `https://unpkg.com/binking`
+You can apply the link CDN `https://unpkg.com/binking`
 
 ```html
 <script src="https://unpkg.com/binking"></script>
 ```
 
-После этого функция `binking` будет доступна в глобальной области видимости.
+After this, `binking` function will be available for global vision.
 
-## Настройки
+## Settings
 
-Вы можете изменить настройки по умолчанию, а можете передавать их при каждом вызове.
-
-Для изменения настроек по умолчанию вызовите:
+You can change default setting or transmit them at every call.
+To change default settings, call:
 
 ```js
 binking.setDefaultOptions({
-  // Объект с новыми настройками
+  // New settings object
 });
 ```
 
-### Общие настройки:
+### General setting:
 
-- **`brandsLogosPath`** по умолчанию `"https://static.binking.io/brands-logos/"`  
-  Путь к файлам с логотипами брендов. Если вы загрузили логотипы брендов к себе на сервер, измените этот путь, иначе логотипы берндов будут раздаваться с нашего сервера. Папка с брендами включена в файлы этого репозитория `brand-logos`.
-- **`brandLogoPolicy`** по умолчанию `"auto"`  
-  Эта настройка определяет стиль логотипа бренда. Доступные значения: `"original"`, `"inverted"`, `"auto"`.
+- **`brandsLogosPath`** default `"https://static.binking.io/brands-logos/"`  
+  Path to files with brand logos. If you have uploaded brand logos to your server, change this path, otherwise brand logos will be distributed from our server. The brands folder is included in the files of this `brand-logos` repository.
+- **`brandLogoPolicy`** default `"auto"`  
+  This parameter defines the brand logo’s style. Available options: `"original"`, `"inverted"`, `"auto"`.
   - `"original"`  
-    Логотип бренда будет цветным
+    Colorized logo
   - `"inverted"`  
-    Логотип бренда будет белым
+    White logo
   - `"auto"`  
-    Логотип бренда будет цветным, если стиль логотипа банка (`formLogoScheme`) цветной (`"original"`)
-    Логотип бренда будет белым, если стиль логотипа банка (`formLogoScheme`) белый (`"inverted"`)
-    Логотип бренда будет цветным, если банк не определён
-- **`maskDigitSymbol`** по умолчанию `"0"`  
-  Символ, обозначающий цифру в маске номера карты, указанной в свойстве экземпляра `cardNumberMask`.
-- **`maskDelimiterSymbol`** по умолчанию `" "`  
-  Символ, обозначающий разделитель в маске номера карты, указанной в свойстве экземпляра `cardNumberMask`.
-- **`gradientDegrees`** по умолчанию `135`  
-  Градус, под которым идёт градиент указанный в свойстве экземпляра `formBackgroundGradient`.
+    Logo is colored, if a bank’s brand logo (`formLogoScheme`) is colored (`"original"`)
+    Logo is white, if a bank’s logo is white (`formLogoScheme`) белый (`"inverted"`)
+    Logo is colored, if bank is unable to recognize
+- **`maskDigitSymbol`** default is `"0"`  
+  Symbol denoting the digit in the mask of the card number specified in the instance property `cardNumberMask`.
+- **`maskDelimiterSymbol`** default `" "`  
+  A symbol denoting a separator in the mask of the card number specified in the instance property `cardNumberMask`.
+- **`gradientDegrees`** default `135`  
+  Degree under which the gradient is specified in the instance property `formBackgroundGradient`.
 
-### Настройки при использовании API
+### Settings when using API
 
-Подробнее о том, как работает API можно прочитать [в документации.](https://binking.io/docs/api) Плагин помогает минимизировать запросы к API. Достаточно всего одного запроса на одного платящего пользователя. Запрос к API происходит единожды и только тогда, когда пользователь ввёл достаточное количество символов для опеределения банка, к которой принадлежит его банк.
+You can read more about how the API works in the [Datasheet.](https://binking.io/docs/api) The plugin helps to minimize API requests. Just one request per paying user is enough. The API request occurs once and only when the user has entered a sufficient number of characters to identify the bank to which his card belongs.
+- **`apiKey`** required field
+  You API key that you obtained on your acount
+- **`sandbox`** default `false`  
+  f set to `true`, then the request will be free. When using the `binking` function, the bank will be determined only if the cardNumber is passed the card number starting with these digits:` 402333` (Sberbank), `546918` (Sberbank),` 400812` (Rosbank), `677721` (Rosbank). When using `binking.getBank` and` binking.getBanks`, banks will be found only if the aliases `"ru-sberbank"` and`"ru-rosbank"` are passed.
 
-- **`apiKey`** обязательное поле  
-  Ваш ключ API, который вы получили в личном кабинете
-- **`sandbox`** по умолчанию `false`  
-  Если установить в `true`, то запрос будет являться бесплатным. При использовнии функции `binking` банк будет определён, только если в cardNumber передать
-  номер карты, начинающийся этими цифрами: `402333` (Сбербанк), `546918` (Сбербанк), `400812` (Росбанк), `677721` (Росбанк). При использовании `binking.getBank` и `binking.getBanks` банки будут найдены только при переданных алиасах `"ru-sberbank"` и `"ru-rosbank"`.
+### Settings when using the archive
 
-### Настройки при использовании архива
+If you purchased an archive and decided to use it on the client side, you need to set the following settings:
 
-Если вы приобрели архив, и решили использовать его на стороне клиента, вам необходимо установить следующие настройки:
+- **`strategy`** default `"api"`  
+  Set `"archive"`
+- **`banksLogosPath`** default `""`  
+  Path to files with bank logos. Upload bank logos to your server and specify the path to them in this property.
+- **`sync`** default `false`
+  If set to `true` then` binking`, `binking.getBank` and` binking.getBanks` functions can be used synchronously.
 
-- **`strategy`** по умолчанию `"api"`  
-  Установите `"archive"`
-- **`banksLogosPath`** по умолчанию `""`  
-  Путь к файлам с логотипами банков. Загрузите логотипы банков к себе на сервер и укажите путь к ним в этом свойстве.
-- **`sync`** по умолчанию `false`
-  Если установить `true`, тогда функции `binking`, `binking.getBank` и `binking.getBanks` можно будеет использовать в синхронном стиле.
-
-Также вам необходимо передать в плагин данные банков и бинов.
+You also need to transfer bank and bin data to the plugin.
 
 ```js
 binking.addBanks(banks);
 binking.addBins(bins);
 ```
 
-В переменной `banks` должен храниться объект из JSON файла с банками. В переменной `bins` должен храниться объект из JSON файла с бинами. Для того, чтобы перенести объект из JSON файла вы можете настроить свой сборщик яваскрипта, или просто скопировать целиком содержимое файла, вот так:
-
+The variable `banks` should contain an object from a JSON file with banks. The bins variable should contain an object from a JSON file with bins. In order to transfer an object from a JSON file, you can customize your javascript collector, or simply copy the entire contents of the file, like this:
 ```js
-binking.addBanks(/* содержимое файла banks-all.json */);
-binking.addBins(/* содержимое файла bins-all.json */);
+binking.addBanks(/* file contents banks-all.json */);
+binking.addBins(/* file contents bins-all.json */);
 ```
 
-Подробнее о содержимом и использовании архив читайте [в документации.](https://binking.io/docs/archive)
+To learn more about file contents and archives read [Datasheet.](https://binking.io/docs/archive)
 
-### Настройки при использовании своего API
+### Settings when using your API
 
-Если вы приобрели архив и решили сделать для себя собственное API, укажите ваши эндпоинты в настройках. Пример реализации собственного API описан [в документации.](https://binking.io/docs/archive)
+If you purchased the archive and decided to make your own API for yourself, specify your endpoints in the settings. An example of implementing your own API is described in [Datasheet.](https://binking.io/docs/archive)
 
-- **`apiFormUrl`** по умолчанию `"http://api.binking.io/form"`
-- **`apiBankUrl`** по умолчанию `"http://api.binking.io/bank"`
-- **`apiBanksUrl`** по умолчанию `"http://api.binking.io/banks"`
+- **`apiFormUrl`** default `"http://api.binking.io/form"`
+- **`apiBankUrl`** default `"http://api.binking.io/bank"`
+- **`apiBanksUrl`** default `"http://api.binking.io/banks"`
 
-## Использование
+## Usage
 
-### Для создания формы
+### Making a form
 
-Используйте один из перечисленных ниже вариантов, чтобы получить объект с данными для вёрстки формы.
+Use one of the following options to get an object with data for form layout.
 
 ```js
 binking(cardNumber, function(result) { /* ... */ });
 binking(cardNumber, options, function(result) { /* ... */ });
 binking(cardNumber).then(function(result) { /* ... */ });
 binking(cardNumber, options).then(function(result) { /* ... */ });
-// Варианты ниже работают только, если в настройках указано { strategy: "archive", sync: true }
+// The options below work only if the settings specify {strategy: "archive", sync: true}
 var result = binking(cardNumber);
 var result = binking(cardNumber, options);
 ```
 
-В качестве `cardNumber` передайте номер карты. Это может быть как число, так и строка, в строке допускаются пробелы. Передавайте номер карты, всякий раз, как изменяется значение, которое пользователь вводит в поле с номером карты. Для определения бренда карты и всех связанных с ним свойств может быть достаточно и 1 символа, банк может быть определён после передачи 6 символов и более.
+Pass the card number as `cardNumber`. It can be either a number or a string, spaces are allowed in the string. Pass the card number whenever the value that the user enters into the card number field changes. To determine the brand of the card and all the properties associated with it, 1 character may be enough, the bank can be determined after transmitting 6 characters or more.
 
-В переменной `result` будет храниться объект со всеми необходими данными для вёрстки формы.
+The variable `result` will store an object with all the necessary data for the layout of the form.
 
-- **`bankAlias`** по умолчанию `null`  
-  Короткое название банка на английском, все буквы маленькие, без пробелов, в начале префикс страны. Например: "ru-sberbank".
-- **`bankName`** по умолчанию `null`  
-  Название банка на английском.
-- **`bankLocalName`** по умолчанию `null`  
-  Название банка на языке той страны, в которой работает банк.
-- **`bankCountry`** по умолчанию `null`  
-  Код страны, в которой работает этот банк. `"ru"` — Россия.
-- **`bankSite`** по умолчанию `null`  
-  Ссылка на сайт банка.
-- **`bankPhone`** по умолчанию `null`  
-  Телефон банка.
-- **`bankLogoBigOriginalSvg`** по умолчанию `null`  
-- **`bankLogoBigOriginalPng`** по умолчанию `null`  
-  Ссылка на большой цветной логотип банка
-- **`bankLogoBigInvertedSvg`** по умолчанию `null`  
-- **`bankLogoBigInvertedPng`** по умолчанию `null`  
-  Большой белый логотип банка.
-- **`bankLogoSmallOriginalSvg`** по умолчанию `null`  
-- **`bankLogoSmallOriginalPng`** по умолчанию `null`  
-  Маленький, вписывающийся в квадрат, цветной логотип банка.
-- **`bankLogoSmallInvertedSvg`** по умолчанию `null`  
-- **`bankLogoSmallInvertedPng`** по умолчанию `null`  
-  Маленький белый логотип банка.
-- **`bankColor`** по умолчанию `null`  
-  Основной цвет банка.
-- **`bankColors`** по умолчанию `null`  
-  Массив со всеми цветами банка.
-- **`formBackgroundColor`** по умолчанию `"#eeeeee"`  
-  Цвет для фона формы.
-- **`formBackgroundColors`** по умолчанию `["#eeeeee", "#dddddd"]`  
-  Массив цветов для градиентного фона формы.
-- **`formBackgroundGradient`** по умолчанию `["#eeeeee", "#dddddd"]`  
-  Содержит строку с CSS значением свойства background, установив которое, вы получите градиент из цветов указанны в поле `formBackgroundColors`. Угол можно указать в свойстве настроек `gradientDegrees`.
-- **`formBackgroundLightness`** по умолчанию `"light"`  
-  Фон скорее тёмный "dark" или светлый "light".
-- **`formTextColor`** по умолчанию `"#000000"`  
-  Цвет текста, который хорошо будет смотреться на фоне формы.
-- **`formBorderColor`** по умолчанию `"#333333"`  
-  Цвет границ для полей в форме.
-- **`formBankLogoBigSvg`** по умолчанию `null` 
-- **`formBankLogoBigPng`** по умолчанию `null`  
-  Ссылка на большой логотип банка, который хорошо будет смотреться на фоне формы.
-- **`formBankLogoSmallSvg`** по умолчанию `null`
-- **`formBankLogoSmallPng`** по умолчанию `null`    
-  Ссылка на маленький логотип банка, который хорошо будет смотреться на фоне формы.
-- **`formLogoScheme`** по умолчанию `null`  
-  Цветовая схема логотипа для формы "original" или "inverted".
-- **`formBrandLogoSvg`** по умолчанию `null`
-- **`formBrandLogoPng`** по умолчанию `null`    
-  Ссылка на логотип бренда, который хорошо будет смотреться на фоне формы.
-- **`brandLogoOriginalSvg`** по умолчанию `null`
-- **`brandLogoOriginalPng`** по умолчанию `null`    
-  Ссылка на цветной логотип бренда.
-- **`brandLogoInvertedSvg`** по умолчанию `null` 
-- **`brandLogoInvertedPng`** по умолчанию `null`  
-  Ссылка на белый логотип бренда.
-- **`brandAlias`** по умолчанию `null`  
-  Короткое название типа на английском, все буквы маленькие, без пробелов.
-- **`brandName`** по умолчанию `null`  
-  Полное название типа.
-- **`codeName`** по умолчанию `null`  
-  Название кода на обратной стороне карты (CVC/CID/CVV/CVN/CVP2).
-- **`codeMinLength`** по умолчанию `3`  
-  Минимальное количество символов в коде безопасности. Всегда 3.
-- **`codeMaxLength`** по умолчанию `4`  
-  Максимальное количество символов в коде безопасности. Обычно 3, но для карт American Express 4.
-- **`cardNumberMask`** по умолчанию `0000 0000 0000 0000000`  
-  Маска для номера карты данного типа. Обычно маска 0000 0000 0000 0000, но некоторые типы карт имеют отличную от 16 символов длину номера карты, и пробелы расставляются в других местах. Например, для карт American Express маска будет 0000 000000 00000. Символы в маске могут быть изменены путем изменения настроек `maskDigitSymbol` и `maskDelimiterSymbol`. Используйте свойство `cardNumberMask` для наложения маски на поле ввода номера карты.
-- **`cardNumberGaps`** по умолчанию `[4, 8, 12]`  
-  Массив с числами, определяющими положение пробелов при создании маски.
-- **`cardNumberBlocks`** по умолчанию `[4, 4, 4, 7]`  
-  Массив с числами, определяющими количество цифр в каждом блоке маски. Определяется на основании свойства `cardNumberGaps` и максимального числа в `cardNumberLengths`.
-- **`cardNumberLengths`** по умолчанию `[12, 13, 14, 15, 16, 17, 18, 19]`  
-  Массив с числами, определяющими допустимое количество символов в номере карты.
-- **`cardNumberMinLength`** по умолчанию `12`  
-  Минимальное допустимое количество симовлов в номере карты.
-- **`cardNumberMaxLength`** по умолчанию `19`  
-  Максимальное допустимое количество симовлов в номере карты.
-- **`cardNumberValidByLuhn`** по умолчанию `true`  
-  Валиден ли номер карты по алгоритму Луна. (Алгоритм проверяющий номер карты на опечатки).
-- **`cardNumberNice`**  
-  Номер карты, приведённый к красивому виду. Маска определяется свойством `cardNumberMask`. Пример: 4377730000000000 → 4377 7300 0000 0000, 437773 → 4377 73.
-- **`cardNumberNormalized`**  
-  Номер карты в виде строки с удалёнными пробелами. Если в переданном номере карты были какие-либо символы, кроме цифр и пробелов, будет пустая строка.
-- **`cardNumberSource`**  
-  Номер карты, переданный при вызове функции.
+- **`bankAlias`** default `null`  
+  The short name of the bank in English, all letters are small, no spaces, at the beginning the country prefix. For example: "ru-sberbank".
+- **`bankName`** default `null`  
+  Bank’s name in English.
+- **`bankLocalName`** default `null`  
+  The name of the bank in the language of the country in which the bank operates.
+- **`bankCountry`** default `null`
+  Country code in which this bank operates. `"ru"` - Russia.
+- **`bankSite`** default `null`
+  Link to the bank's website.
+- **`bankPhone`** default `null`
+  Bank phone.
+- **`bankLogoBigOriginalSvg`** default `null`
+- **`bankLogoBigOriginalPng`** default `null`
+  Link to the large color bank logo
+- **`bankLogoBigInvertedSvg`** default `null`
+- **`bankLogoBigInvertedPng`** default `null`
+  Large white bank logo.
+- **`bankLogoSmallOriginalSvg`** default `null`
+- **`bankLogoSmallOriginalPng`** default `null`
+  Small, square-shaped, colored bank logo.
+- **`bankLogoSmallInvertedSvg`** default `null`
+- **`bankLogoSmallInvertedPng`** default `null`
+  Small white bank logo.
+- **`bankColor`** default `null`
+  The main color of the bank.
+- **`bankColors`** default `null`
+  An array with all the colors of the bank.
+- **`formBackgroundColor`** default `"#eeeeee"`
+  The color for the background of the form.
+- **`formBackgroundColors`** default `["#eeeeee", "#dddddd"]`
+  Array of colors for the gradient background of the shape.
+- **`formBackgroundGradient`** default `["#eeeeee", "#dddddd"]`
+  Contains a line with the CSS background property value, by setting which you get a gradient from the colors specified in the `formBackgroundColors` field. The angle can be specified in the `gradientDegrees` property of the settings.
+- **`formBackgroundLightness`** default `"light"`  
+  The background is rather dark "dark" or light "light".
+- **`formTextColor`** default `"#000000"`
+  The color of the text that will look good against the background of the form.
+- **`formBorderColor`** default `"#333333"`
+  Border color for form fields.
+- **`formBankLogoBigSvg`** default `null`
+- **`formBankLogoBigPng`** default `null`
+  Link to a large bank logo that will look good against the background of the form.
+- **`formBankLogoSmallSvg`** default `null`
+- **`formBankLogoSmallPng`** default `null`
+  Link to a small bank logo that will look good against the background of the form.
+- **`formLogoScheme`** default `null`
+  Color scheme of the logo for the "original" or "inverted" form.
+- **`formBrandLogoSvg`** default `null`
+- **`formBrandLogoPng`** default `null`
+  Link to a brand logo that will look good against the background of the form.- **`brandLogoOriginalSvg`** default `null`
+- **`brandLogoOriginalPng`** default `null`    
+  Link to the brand's color logo.
+- **`brandLogoInvertedSvg`** default `null`
+- **`brandLogoInvertedPng`** default `null`  
+  Link to the white brand logo.
+- **`brandAlias`** default `null`
+  Short name of the type in English, all letters are small, no spaces.
+- **`brandName`** default `null`
+  The full name of the type.
+- **`codeName`** default `null`
+  Code name on the back of the card (CVC / CID / CVV / CVN / CVP2).
+- **`codeMinLength`** default `3`
+  The minimum number of characters in the security code. Always 3.
+- **`codeMaxLength`** default `4`
+  The maximum number of characters in the security code. Usually 3, but for American Express cards 4.
+- **`cardNumberMask`** default `0000 0000 0000 0000000`
+  Mask for the card number of this type. Usually the mask is 0000 0000 0000 0000, but some types of cards have a length of the card number other than 16 characters, and spaces are placed in other places. For example, for American Express cards the mask will be 0000000000 00000. The symbols in the mask can be changed by changing the settings for `maskDigitSymbol` and` maskDelimiterSymbol`. Use the `cardNumberMask` property to mask the card number input field.
+- **`cardNumberGaps`** default `[4, 8, 12]`  
+  An array with numbers defining the position of the spaces when creating the mask.
+- **`cardNumberBlocks`** default `[4, 4, 4, 7] `
+  An array with numbers defining the number of digits in each mask block. Determined based on the `cardNumberGaps` property and the maximum number in `cardNumberLengths`.
+- **`cardNumberLengths`** default `[12, 13, 14, 15, 16, 17, 18, 19]`
+  An array with numbers defining the allowed number of characters in the card number.
+- **`cardNumberMinLength`** default `12`
+  The minimum allowed number of symbols in the card number.
+- **`cardNumberMaxLength`** default `19`
+  The maximum number of symbols allowed in the card number.
+- **`cardNumberValidByLuhn`** default `true`
+  Is the card number valid according to the Luna algorithm. (Algorithm that checks the card number for typos).
+- **`cardNumberNice`**
+  Nice-looking card number. The mask is defined by the `cardNumberMask` property. Example: 4377730000000000 → 4377 7300 0000 0000, 437773 → 4377 73.
+- **`cardNumberNormalized`**
+  Card number as a string with spaces removed. If the transmitted card number contained any characters other than numbers and spaces, there will be an empty string.
+- **`cardNumberSource`**
 
-Если по номеру карты не удалось определить данные о банке, поля `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`,`bankLogoSmallInvertedSvg`, `bankLogoBigOriginalPng`, `bankLogoBigInvertedPng`, `bankLogoSmallOriginalPng`,`bankLogoSmallInvertedPng`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallPng`, `formBankLogoBigPng`, `formBankLogoSmallPng` будут иметь значение по умолчанию.
+Card number passed when calling the function.
 
-Если по номеру карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoInvertedSvg`, `formBrandLogoSvg`, `brandLogoOriginalPng`, `brandLogoInvertedPng`, `formBrandLogoPng`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
+If it was not possible to determine the bank data by the card number, the fields `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`,`bankLogoSmallInvertedSvg`, `bankLogoBigOriginalPng`, `bankLogoBigInvertedPng`, `bankLogoSmallOriginalPng`,`bankLogoSmallInvertedPng`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallPng`, `formBankLogoBigPng`, `formBankLogoSmallPng` will have the default value.
 
-### Получение данных конкретного банка
+If it was not possible to determine the type data by the card number, the fields `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoInvertedSvg`, `formBrandLogoSvg`, `brandLogoOriginalPng`, `brandLogoInvertedPng`, `formBrandLogoPng`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` will have the default value.
 
-Этот метод может пригодится для вывода информации о банке пользователя, в случае если он сохранил свою банковскую карту, а вы записали алиас банка (bankAlias) в свою базу данных, когда пользователь вводил её данные.
+### Retrieving data from a specific bank
+
+This method can be useful for displaying information about the user's bank if he saved his bank card, and you recorded the bank alias (bankAlias) in your database when the user entered its data.
 
 ```js
 binking.getBank(bankAlias, function(result) { /* ... */ });
 binking.getBank(bankAlias, options, function(result) { /* ... */ });
 binking.getBank(bankAlias).then(function(result) { /* ... */ });
 binking.getBank(bankAlias, options).then(function(result) { /* ... */ });
-// Варианты ниже работают только, если в настройках указано { strategy: "archive", sync: true }
+// The options below only work if the settings indicate { strategy: "archive", sync: true }
 var result = binking.getBank(bankAlias);
 var result = binking.getBank(bankAlias, options);
 ```
 
-В качестве `bankAlias` передайте сохранённый ранее алиас банка. Например: "ru-sberbank"
+Pass the previously saved bank alias as `bankAlias`. For example: "ru-sberbank"
 
-В переменной `result` будет храниться объект со всеми данными о банке. Названия свойств будут такими же, как и при вызове функции `binking`, однако там не будет полей относящихся к бренду и номеру карты. Перечень возвращаемых полей: `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankLogoSmallInvertedSvg`, `bankLogoBigOriginalPng`, `bankLogoBigInvertedPng`, `bankLogoSmallOriginalPng`, `bankLogoSmallInvertedPng`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg`, `formBankLogoBigPng`, `formBankLogoSmallPng`.
+The variable `result` will contain an object with all the data about the bank. The property names will be the same as when calling the binking function, but there will be no fields related to the brand and card number. List of returned fields: `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankLogoSmallInvertedSvg`, `bankLogoBigOriginalPng`, `bankLogoBigInvertedPng`, `bankLogoSmallOriginalPng`, `bankLogoSmallInvertedPng`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg`, `formBankLogoBigPng`, `formBankLogoSmallPng`.
 
-Если банк с указанным алиасом найден не был, будет возвращено `null`.
+If the bank with the specified alias was not found, the value `null` will be returned.
 
-### Получение данных о нескольких банках
+### Retrieving data on multiple banks
 
 ```js
 binking.getBanks(banksAliases, function(result) { /* ... */ });
 binking.getBanks(banksAliases, options, function(result) { /* ... */ });
 binking.getBanks(banksAliases).then(function(result) { /* ... */ });
 binking.getBanks(banksAliases, options).then(function(result) { /* ... */ });
-// Варианты ниже работают только, если в настройках указано { strategy: "archive", sync: true }
+// The options below only work if the settings indicate { strategy: "archive", sync: true }
 var result = binking.getBanks(banksAliases);
 var result = binking.getBanks(banksAliases, options);
 ```
 
-В качестве `banksAliases` передайте массив с алиасами банков. Например: `["ru-sberbank", "ru-alias"]`
+For `banksAliases`, pass an array with bank aliases. For example: `["ru-sberbank", "ru-alias"]`
 
-В переменной `result` будут храниться массив с объектами, в каждом из которы будут все данные о запрошенном банке.
+The variable `result` will contain an array with objects, each of which will contain all the data about the requested bank.
 
-Если банк не был найден, то на его месте в массиве будет `null`.
+If the bank was not found, then `null` will be in its place in the array.
 
-### Получение данных конкретного бренда
+### Retrieving specific brand data
 
 ```js
 var result = binking.getBrand(brandAlias);
 var result = binking.getBrand(brandAlias, options);
 ```
 
-В качестве `brandAlias` передайте алиас бренда. Например: "visa".
+Pass the brand alias as `brandAlias`. For example: "visa".
 
-В переменной `result` будет храниться объект со всеми данными о бренде.
+The variable `result` will contain an object with all the data about the brand.
 
-- **`logoOriginalSvg`** по умолчанию `null`  
-- **`logoOriginalPng`** по умолчанию `null`  
-  Ссылка на цветной логотип бренда.
-- **`logoInvertedSvg`** по умолчанию `null`  
-- **`logoInvertedPng`** по умолчанию `null`  
-  Ссылка на белый логотип бренда.
-- **`name`**  
-  Название бренда.
-- **`alias`**  
-  Короткое название типа на английском, все буквы маленькие, без пробелов.
-- **`pattern`**  
-  Регулярнное выражение для определения принадлежности номера карты к этоу бренду.
-- **`gaps`**  
-  Массив с числами, определяющими положение пробелов при создании маски.
-- **`lengths`**  
-  Массив с числами, определяющими допустимое количество символов в номере карты.
-- **`codeName`**  
-  Название кода на обратной стороне карты (CVC/CID/CVV/CVN/CVP2).
-- **`codeMinLength`**  
-  Минимальное количество символов в коде безопасности. Всегда 3.
-- **`codeMaxLength`**  
-  Максимальное количество символов в коде безопасности. Обычно 3, но для карт American Express 4.
-- **`bankAlias`** по умолчанию `null`  
-  Короткое название банка на английском, все буквы маленькие, без пробелов, в начале префикс страны. Например: "ru-sberbank".
-- **`bankName`** по умолчанию `null`  
-  Название банка на английском.
+- **`logoOriginalSvg`** default `null`
+- **`logoOriginalPng`** default `null`  
+  Link to the brand's color logo.
+- **`logoInvertedSvg`** default `null`
+- **`logoInvertedPng`** default `null`  
+  Link to the white brand logo.
+- **`name`**
+  Brand name.
+- **`alias`**
+  Short name of the type in English, all letters are small, no spaces.
+- **`pattern`**
+  Regular expression to determine whether the card number belongs to this brand.
+- **`gaps`**
+  An array with numbers defining the position of the spaces when creating the mask.
+- **`lengths`**
+  An array with numbers defining the allowed number of characters in the card number.
+- **`codeName`**
+  Code name on the back of the card (CVC / CID / CVV / CVN / CVP2).
+- **`codeMinLength`**
+  The minimum number of characters in the security code. Always 3.
+- **`codeMaxLength`**
+  The maximum number of characters in the security code. Usually 3, but for American Express cards is 4.
+- **`bankAlias`** default `null`  
+  The short name of the bank in English, all letters are small, no spaces, at the beginning the country prefix. For example: "ru-sberbank".
+- **`bankName`** default` null`
+  Bank name in English.
 
-### Получение ссылки на логотип бренда
+### Getting a link to a brand logo
 
 ```js
 var result = binking.getBrandLogo(brandAlias);
@@ -333,9 +328,9 @@ var result = binking.getBrandLogo(brandAlias, options);
 var result = binking.getBrandLogo(brandAlias, logoScheme, options);
 ```
 
-Вспомогательная функция для получения ссылки на логотип бренда. Если не указывать `logoScheme`, будет считаться, что он равен `original`. Допустимые значения для `logoScheme` — `original` или `inverted`.
+Helper function for getting a link to a brand logo. If you do not specify `logoScheme`, it will be considered equal to` original`. Valid values for `logoScheme` are` original` or `inverted`.
 
-### Получение данных нескольких брендов
+### Retrieving data from multiple brands
 
 ```js
 var result = binking.getBrands();
@@ -344,25 +339,25 @@ var result = binking.getBrands(brandsAliases);
 var result = binking.getBrands(brandsAliases, options);
 ```
 
-В качестве `brandsAliases` передайте массив с алиасами бренда. Например: `["visa", "mastercard"]`. Если brandsAliases передан не будет, вы получите список всех брендов. Если один из указанных берндов найде не будет, он не попадёт в массив с результатами.
+For `brandsAliases`, pass an array with brand aliases. For example: `["visa", "mastercard"]`. If brandsAliases is not passed, you will get a list of all brands. If one of the specified bernds is not found, it will not be included in the array with the results.
 
-В переменной `result` будет храниться массив с объектами со всеми данными о каждом бренде.
+The variable `result` will contain an array with objects with all the data about each brand.
 
-## Валидация
+## Validation
 
-### Валидация всех данных карты
+### Validation of all card data
 
 ```js
 var result = binking.validate(cardNumber, month, year, code);
 ```
 
-Результат валидации это объект вида `{ hasErros: Boolean, errors: Object}`.
+The result of validation is an object of the form `{hasErros: Boolean, errors: Object}`.
 
-Если в данных карты не найдено никаких ошибок, тогда `hasErros` будет `false`, объект `erros` будет `{}`.
+If no errors were found in the map data, then `hasErros` will be` false`, the `erros` object will be` {} `.
 
-Если в данных карты найден какие либо ошибки. В `hasErros` будет `true`. Каждый ключ объекта будет соответствовать названию поля, к которому принадлежит ошибка. Каждое значение будет являться объектом `{ field: String, code: String, message: String }`. В свойстве `field` также содержится название поля. В свойстве `code` содердится код ошибки. В свойстве `message` сообщение об ошибке в человекопонятной форме. Если поле не содержит ошибки, тогда не будет и соответствующего ключа в объекете `errors`.
+If any errors are found in the map data, `hasErros` will be` true`. Each object key will correspond to the name of the field to which the error belongs. Each value will be a `{field: String, code: String, message: String}` object. The `field` property also contains the name of the field. The `code` property contains the error code. The `message` property contains a human-readable error message. If the field does not contain an error, then there will be no corresponding key in the `errors` object.
 
-Пример:
+Example:
 
 ```js
 var result = binking.validate("1234", "13", "2a", "12345");
@@ -376,70 +371,70 @@ console.log(result);
     cardNumber: {
       field: 'cardNumber',
       code: 'CARD_NUMBER_INCOMPLETE',
-      message: 'Номер карты заполнен не до конца',
+      message: 'The card number is not completely filled in',
     },
     month: {
       field: 'month',
       code: 'MONTH_INVALID',
-      message: 'Ошибка в месяце истечения карты',
+      message: 'Card expiration month error',
     },
     year: {
       field: 'year',
       code: 'YEAR_INVALID',
-      message: 'Ошибка в годе истечения карты',
+      message: 'Card expiration year error',
     },
     code: {
       field: 'code',
       code: 'CODE_INVALID',
-      message: 'Код безопасности указан неверно',
+      message: 'Security code is incorrect',
     },
   }
 }
 ```
 
-Полный список ошибок соответствующих каждому из полей смотрите ниже.
+a complete list of errors corresponding to each of the fields is listed below.
 
-### Валидация номер карты
+### Card number validation
 
 ```js
 var result = binking.validateCardNumber(cardNumber);
 ```
 
-В ответ возвращает `undefined`, если ошибок в номере карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'cardNumber', code: String, message: String }`.
+In response, it returns `undefined` if there are no errors in the card number. If there is any error, an object of the form `{field: 'cardNumber', code: String, message: String}` is returned.
 
-Возможные коды (`code`) и сообщения об ошибках (`message`):
+Possible codes (`code`) and error messages (` message`):
 
-- `CARD_NUMBER_REQUIRED`: "Укажите номер вашей банковской карты"
-- `CARD_NUMBER_INVALID`: "Номер карты содержит недопустимые символы"
-- `CARD_NUMBER_INCOMPLETE`: "Номер карты заполнен не до конца"
-- `CARD_NUMBER_OVERCOMPLETE`: "В номере карты слишком много символов"
-- `CARD_NUMBER_LUHN`: "В номере карты содержится опечатка"
+- `CARD_NUMBER_REQUIRED`: "Enter your bank card number"
+- `CARD_NUMBER_INVALID`: "The card number contains invalid characters"
+- `CARD_NUMBER_INCOMPLETE`: "The card number is not completely filled in"
+- `CARD_NUMBER_OVERCOMPLETE`: "There are too many characters in the card number"
+- `CARD_NUMBER_LUHN`: "There is a typo in the card number"
 
-### Валидация месяца
+### Validate month
 
 ```js
 var result = binking.validateMonth(month);
 ```
 
-В ответ возвращает `undefined`, если ошибок в месяце истечения карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'month', code: String, message: String }`.
+In response, it returns `undefined` if there are no errors in the card expiration month. If there is any error, an object of the form `{field: 'month', code: String, message: String}` is returned.
 
-Возможные коды (`code`) и сообщения об ошибках (`message`):
+Possible codes (`code`) and error messages (`message`):
 
-- `MONTH_REQUIRED`: "Укажите месяц истечения карты"
-- `MONTH_INVALID`: "Ошибка в месяце истечения карты"
+- `MONTH_REQUIRED`: "Specify card expiration month"
+- `MONTH_INVALID`: "Error in card expiration month"
 
-### Валидация года
+### Validation of the year
 
 ```js
-var result = binking.validateYear(year);
+var result = binking.validateYear (year);
 ```
 
-В ответ возвращает `undefined`, если ошибок в годе истечения карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'year', code: String, message: String }`.
+In response, it returns `undefined` if there are no errors in the card expiration year. If there is any error, an object of the form `{field: 'year', code: String, message: String}` is returned.
 
-Возможные коды (`code`) и сообщения об ошибках (`message`):
+Possible codes (`code`) and error messages (`message`):
 
-- `YEAR_REQUIRED`: "Укажите год истечения карты"
-- `YEAR_INVALID`: "Ошибка в годе истечения карты"
+- `YEAR_REQUIRED`: "Specify the card expiration year"
+- `YEAR_INVALID`: "Error in the card expiration year"
 
 ### Валидация даты
 
@@ -447,29 +442,29 @@ var result = binking.validateYear(year);
 var result = binking.validateYear(month, year);
 ```
 
-В ответ возвращает `undefined`, если ошибок в дате истечения карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'year' | 'month', code: String, message: String }`.
+Returns `undefined` if there are no errors in the card expiration date. If there is any error, an object of the form `{field: 'year' | 'month', code: String, message: String} `.
 
-Возможные коды (`code`) и сообщения об ошибках (`message`):
+Possible codes (`code`) and error messages (`message`):
 
-- `YEAR_IN_PAST`: "Год указан в прошедшем времени"
-- `MONTH_IN_PAST`: "Месяц указан в прошедшем времени"
+- `YEAR_IN_PAST`: "The year is in the past tense"
+- `MONTH_IN_PAST`: "Month is in the past tense"
 
-### Валидация кода безопасности
+### Security Code Validation
 
 ```js
-var result = binking.validateCode(code);
+var result = binking.validateCode (code);
 ```
 
-В ответ возвращает `undefined`, если ошибок в коде безопасности карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'code', code: String, message: String }`.
+In response, it returns `undefined` if there are no errors in the card's security code. If there is any error, an object of the form `{field: 'code', code: String, message: String}` is returned.
 
-Возможные коды (`code`) и сообщения об ошибках (`message`):
+Possible codes (`code`) and error messages (`message`):
 
-- `CODE_REQUIRED`: "Укажите код безопасности"
-- `CODE_INVALID`: "Код безопасности указан неверно"
+- `CODE_REQUIRED`: "Please provide a security code"
+- `CODE_INVALID`: "The security code is incorrect"
 
-### Установка своих сообщений об ошибках
+### Setting your own error messages
 
-По-умолчанию сообщения об ошибке выводятся на английском языке:
+By default, error messages are displayed in English:
 
 ```js
 binking.setValidationErrors({
@@ -489,7 +484,7 @@ binking.setValidationErrors({
 });
 ```
 
-Но вы можете установить свои собственные сообщения на любом языке. Вот к примеру на русском:
+But you can set your own messages in any language. For example, in Russian:
 
 ```js
 binking.setValidationErrors({
@@ -509,22 +504,22 @@ binking.setValidationErrors({
 });
 ```
 
-## Бренды
+## Brands
 
-В файлах плагина есть папка с логотипами брендов `brands-logos`. Логотип каждого бренда представлен в 3 цветовых схемах: цветной, чёрный, белый. Также все эти логотипы загргужены по адресу: https://static.binking.io/brands-logos
+The plugin files contain a folder with brand logos `brands-logos`. Each brand's logo is presented in 3 color schemes: color, black, white. Also all these logos are downloaded at: https://static.binking.io/brands-logos
 
-Вы можете скачать эти логотипы к себе и использовать их на своей стороне, или вы можете выводить их напрямую с нашего сервера. Названия файлов на нашем сервере идентичны тем, что представлены в папке `brands-logos`.
+You can download these logos to yourself and use them on your side, or you can display them directly from our server. The filenames on our server are identical to those in the `brands-logos` folder.
 
-Перечень брендов: Visa, Mastercard, American Express, Diners Club, Discover, JCB, UnionPay, Maestro, Mir.
+List of brands: Visa, Mastercard, American Express, Diners Club, Discover, JCB, UnionPay, Maestro, Mir.
 
-Перечень алиасов брендов: `visa`, `mastercard`, `american-express`, `diners-club`, `discover`, `jcb`, `unionpay`, `maestro`, `mir`.
+List of brand aliases: `visa`, `mastercard`, `american-express`, `diners-club`, `discover`, `jcb`, `unionpay`, `maestro`, `mir`.
 
-## Разработка и тестирование
+## Development and testing
 
-Весь исходный код находится в файле `index.js`. Для применения eslint вызовите команду `$ npm run lint-fix`. Чтобы сбилдить файлы для папки `dist` вызовите команду `$ npm run build`.
+All source code is in the `index.js` file. To apply eslint, call the command `$ npm run lint-fix`. To build files for the `dist` folder, call the` $ npm run build` command.
 
-Чтобы прогнать тесты вызовите команду `$ API_KEY=YOUR_API_KEY npm run test`.
+To run the tests, call the command `$ API_KEY=YOUR_API_KEY npm run test`.
 
-Чтобы прогнать тесты в браузере, откройте файл `test.html` в браузере, после этого в строке браузера добавьте `#YOUR_API_KEY`. Например: `file:///Users/username/binking/test.html#YOUR_API_KEY`.
+To run tests in a browser, open the file `test.html` in a browser, then add` # YOUR_API_KEY` in the browser line. For example: `file:///Users/username/binking/test.html # YOUR_API_KEY`.
 
-Если ключ апи не указать, тесты провалятся. Все запросы к апи во время теста уходят с флагом `sandbox=1`, так что эти запросы являются абсолютно бесплатными.
+If you don't specify an API key, tests will fail. All API requests during the test go with the `sandbox = 1` flag, so these requests are completely free.

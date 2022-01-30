@@ -1,7 +1,7 @@
 /*
- * binking v2.0.4
+ * binking v2.0.8
  * Get bank logo, colors, phone, brand, validation and etc. by card number
- * https://github.com/iserdmi/binking.git
+ * https://github.com/sdandteam/binking.git
  * by BinKing (https://binking.io)
  */
 

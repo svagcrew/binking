@@ -2,7 +2,7 @@
 
 BinKing is a King banking card data fill-in form. BinKing allows you to get the bank logo, colors, phone number, brand logo and more by card number. BinKing also helps in the validation of these forms. Use BinKing to create a smart and responsive card acceptance form. Increase conversion, increase user loyalty, reduce the workload of the support department.
 
-To use the plugin, you need an API key or data from the archive. The key and archive can be obtained in your personal account [on the BinKing website.] (Https://binking.io) See the list of available banks and countries [on this page.] (https://binking.io/en/docs/banks)
+To use the plugin, you need an API key or data from the archive. The key and archive can be obtained in your personal account [on the BinKing website.](https://binking.io) See the list of available banks and countries [on this page.](https://binking.io/en/docs/banks)
 
 Plugin demonstration is available here: [JSFiddle.](https://jsfiddle.net/serge10d1n/9sj53x01/1/) This demonstration is a part of [Creating a payment form comprehensive guide.](https://binking.io/en/guide) We talk about show how to apply in the plugin, how to set an automatic cursor move, how to provide a form validation, etc. Article contains full code samples, you can just copy and use it. You can easily modify it according to your needs
 

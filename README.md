@@ -2,9 +2,9 @@
 
 BinKing is a King banking card data fill-in form. BinKing allows you to get the bank logo, colors, phone number, brand logo and more by card number. BinKing also helps in the validation of these forms. Use BinKing to create a smart and responsive card acceptance form. Increase conversion, increase user loyalty, reduce the workload of the support department.
 
-To use the plugin, you need an API key or data from the archive. The key and archive can be obtained in your personal account [on the BinKing website.] (Https://binking.io) See the list of available banks and countries [on this page.] (https://binking.io/docs/banks)
+To use the plugin, you need an API key or data from the archive. The key and archive can be obtained in your personal account [on the BinKing website.](https://binking.io) See the list of available banks and countries [on this page.][banks]
 
-Plugin demonstration is available here: [JSFiddle.](https://jsfiddle.net/serge10d1n/9sj53x01/1/) This demonstration is a part of [Creating a payment form comprehensive guide.](https://binking.io/guide) We talk about show how to apply in the plugin, how to set an automatic cursor move, how to provide a form validation, etc. Article contains full code samples, you can just copy and use it. You can easily modify it according to your needs
+Plugin demonstration is available here: [JSFiddle.](https://jsfiddle.net/serge10d1n/9sj53x01/1/) This demonstration is a part of [Creating a payment form comprehensive guide.][guide] We talk about show how to apply in the plugin, how to set an automatic cursor move, how to provide a form validation, etc. Article contains full code samples, you can just copy and use it. You can easily modify it according to your needs
 
 ## Quick start
 
@@ -39,7 +39,7 @@ $cardNumberField.onkeyup = () => {
 };
 ```
 
-If you need more “lively” sample, suitable for a real project, again, we recommend to check out [Creating a payment form comprehensive guide.](https://binking.io/guide)
+If you need more “lively” sample, suitable for a real project, again, we recommend to check out [Creating a payment form comprehensive guide.][guide]
 
 ## Plugin apply
 
@@ -91,7 +91,7 @@ binking.setDefaultOptions({
 
 ### Settings when using API
 
-You can read more about how the API works in the [Datasheet.](https://binking.io/docs/api) The plugin helps to minimize API requests. Just one request per paying user is enough. The API request occurs once and only when the user has entered a sufficient number of characters to identify the bank to which his card belongs.
+You can read more about how the API works in the [Datasheet.][api] The plugin helps to minimize API requests. Just one request per paying user is enough. The API request occurs once and only when the user has entered a sufficient number of characters to identify the bank to which his card belongs.
 - **`apiKey`** required field
   You API key that you obtained on your acount
 - **`sandbox`** default `false`  
@@ -121,11 +121,11 @@ binking.addBanks(/* file contents banks-all.json */);
 binking.addBins(/* file contents bins-all.json */);
 ```
 
-To learn more about file contents and archives read [Datasheet.](https://binking.io/docs/archive)
+To learn more about file contents and archives read [Datasheet][].
 
 ### Settings when using your API
 
-If you purchased the archive and decided to make your own API for yourself, specify your endpoints in the settings. An example of implementing your own API is described in [Datasheet.](https://binking.io/docs/archive)
+If you purchased the archive and decided to make your own API for yourself, specify your endpoints in the settings. An example of implementing your own API is described in [Datasheet][].
 
 - **`apiFormUrl`** default `"http://api.binking.io/form"`
 - **`apiBankUrl`** default `"http://api.binking.io/bank"`
@@ -506,7 +506,7 @@ binking.setValidationErrors({
 
 ## Brands
 
-The plugin files contain a folder with brand logos `brands-logos`. Each brand's logo is presented in 3 color schemes: color, black, white. Also all these logos are downloaded at: https://static.binking.io/brands-logos
+The plugin files contain a folder with brand logos `brands-logos`. Each brand's logo is presented in 3 color schemes: color, black, white. Also all these logos are downloaded at: <https://static.binking.io/brands-logos>
 
 You can download these logos to yourself and use them on your side, or you can display them directly from our server. The filenames on our server are identical to those in the `brands-logos` folder.
 
@@ -523,3 +523,8 @@ To run the tests, call the command `$ API_KEY=YOUR_API_KEY npm run test`.
 To run tests in a browser, open the file `test.html` in a browser, then add` # YOUR_API_KEY` in the browser line. For example: `file:///Users/username/binking/test.html # YOUR_API_KEY`.
 
 If you don't specify an API key, tests will fail. All API requests during the test go with the `sandbox = 1` flag, so these requests are completely free.
+
+[guide]: https://binking.io/en/guide
+[Datasheet]: https://binking.io/en/docs/archive
+[api]: https://binking.io/en/docs/api
+[banks]: https://binking.io/en/docs/banks

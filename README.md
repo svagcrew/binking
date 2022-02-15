@@ -80,7 +80,7 @@ binking.setDefaultOptions({
     White logo
   - `"auto"`  
     Logo is colored, if a bank’s brand logo (`formLogoScheme`) is colored (`"original"`)
-    Logo is white, if a bank’s logo is white (`formLogoScheme`) белый (`"inverted"`)
+    Logo is white, if a bank’s logo (`formLogoScheme`) is white (`"inverted"`)
     Logo is colored, if bank is unable to recognize
 - **`maskDigitSymbol`** default is `"0"`  
   Symbol denoting the digit in the mask of the card number specified in the instance property `cardNumberMask`.
@@ -436,7 +436,7 @@ Possible codes (`code`) and error messages (`message`):
 - `YEAR_REQUIRED`: "Specify the card expiration year"
 - `YEAR_INVALID`: "Error in the card expiration year"
 
-### Валидация даты
+### Date validation
 
 ```js
 var result = binking.validateYear(month, year);
@@ -488,19 +488,19 @@ But you can set your own messages in any language. For example, in Russian:
 
 ```js
 binking.setValidationErrors({
-  CARD_NUMBER_REQUIRED: "Укажите номер вашей банковской карты",
-  CARD_NUMBER_INVALID: "Номер карты содержит недопустимые символы",
-  CARD_NUMBER_INCOMPLETE: "Номер карты заполнен не до конца",
-  CARD_NUMBER_OVERCOMPLETE: "В номере карты слишком много символов",
-  CARD_NUMBER_LUHN: "В номере карты содержится опечатка",
-  MONTH_REQUIRED: "Укажите месяц истечения карты",
-  MONTH_INVALID: "Ошибка в месяце истечения карты",
-  YEAR_REQUIRED: "Укажите год истечения карты",
-  YEAR_INVALID: "Ошибка в годе истечения карты",
+  CARD_NUMBER_REQUIRED: "Enter your bank card number",
+  CARD_NUMBER_INVALID: "Card number contains invalid characters",
+  CARD_NUMBER_INCOMPLETE: "Card number is incomplete",
+  CARD_NUMBER_OVERCOMPLETE: "There are too many characters in the card number",
+  CARD_NUMBER_LUHN: "Card number contains a typo",
+  MONTH_REQUIRED: "Specify card expiration month",
+  MONTH_INVALID: "Error in card expiration month",
+  YEAR_REQUIRED: "Specify the card expiration year",
+  YEAR_INVALID: "Error in card expiration year",
   YEAR_IN_PAST: "Year is in the past",
   MONTH_IN_PAST: "Month is in the past",
-  CODE_REQUIRED: "Укажите код безопасности",
-  CODE_INVALID: "Код безопасности указан неверно"
+  CODE_REQUIRED: "Please provide a security code",
+  CODE_INVALID: "The security code specified is invalid"
 });
 ```
 

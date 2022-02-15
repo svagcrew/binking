@@ -80,7 +80,7 @@ binking.setDefaultOptions({
     White logo
   - `"auto"`  
     Logo is colored, if a bank’s brand logo (`formLogoScheme`) is colored (`"original"`)
-    Logo is white, if a bank’s logo is white (`formLogoScheme`) белый (`"inverted"`)
+    Logo is white, if a bank’s logo (`formLogoScheme`)  is white (`"inverted"`)
     Logo is colored, if bank is unable to recognize
 - **`maskDigitSymbol`** default is `"0"`  
   Symbol denoting the digit in the mask of the card number specified in the instance property `cardNumberMask`.
@@ -436,7 +436,7 @@ Possible codes (`code`) and error messages (`message`):
 - `YEAR_REQUIRED`: "Specify the card expiration year"
 - `YEAR_INVALID`: "Error in the card expiration year"
 
-### Валидация даты
+### Date validation
 
 ```js
 var result = binking.validateYear(month, year);
@@ -497,8 +497,8 @@ binking.setValidationErrors({
   MONTH_INVALID: "Ошибка в месяце истечения карты",
   YEAR_REQUIRED: "Укажите год истечения карты",
   YEAR_INVALID: "Ошибка в годе истечения карты",
-  YEAR_IN_PAST: "Year is in the past",
-  MONTH_IN_PAST: "Month is in the past",
+  YEAR_IN_PAST: "Этот год прошёл",
+  MONTH_IN_PAST: "Этот месяц прошёл",
   CODE_REQUIRED: "Укажите код безопасности",
   CODE_INVALID: "Код безопасности указан неверно"
 });

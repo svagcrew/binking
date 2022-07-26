@@ -53,6 +53,10 @@ var getBankSberbankApiResult = {
   bankLogoBigInvertedSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
   bankLogoSmallOriginalSvg: 'https://static.binking.io/banks-logos/3dc348ddd7af05f0.svg',
   bankLogoSmallInvertedSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
+  bankLogoBigOriginalPng: 'https://static.binking.io/banks-logos/01be7d8dcbb14510.png',
+  bankLogoBigInvertedPng: 'https://static.binking.io/banks-logos/0e73c94e945364bc.png',
+  bankLogoSmallOriginalPng: 'https://static.binking.io/banks-logos/efe5e16478056787.png',
+  bankLogoSmallInvertedPng: 'https://static.binking.io/banks-logos/5310e5d14dbf7c17.png',
   bankColor: '#1a9f29',
   bankColors: ['#1a9f29'],
   bankCountry: 'ru',
@@ -66,6 +70,8 @@ var getBankSberbankApiResult = {
   formBorderColor: '#ffffff',
   formBankLogoBigSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
   formBankLogoSmallSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
+  formBankLogoBigPng: 'https://static.binking.io/banks-logos/0e73c94e945364bc.png',
+  formBankLogoSmallPng: 'https://static.binking.io/banks-logos/5310e5d14dbf7c17.png',
   formLogoScheme: 'inverted'
 }
 var getBankSberbankArchiveResult = {
@@ -76,6 +82,10 @@ var getBankSberbankArchiveResult = {
   bankLogoBigInvertedSvg: 'ru-sberbank-big-inverted.svg',
   bankLogoSmallOriginalSvg: 'ru-sberbank-small-original.svg',
   bankLogoSmallInvertedSvg: 'ru-sberbank-small-inverted.svg',
+  bankLogoBigOriginalPng: 'ru-sberbank-big-original.png',
+  bankLogoBigInvertedPng: 'ru-sberbank-big-inverted.png',
+  bankLogoSmallOriginalPng: 'ru-sberbank-small-original.png',
+  bankLogoSmallInvertedPng: 'ru-sberbank-small-inverted.png',
   bankColor: '#1a9f29',
   bankColors: ['#1a9f29'],
   bankCountry: 'ru',
@@ -89,6 +99,8 @@ var getBankSberbankArchiveResult = {
   formBorderColor: '#ffffff',
   formBankLogoBigSvg: 'ru-sberbank-big-inverted.svg',
   formBankLogoSmallSvg: 'ru-sberbank-small-inverted.svg',
+  formBankLogoBigPng: 'ru-sberbank-big-inverted.png',
+  formBankLogoSmallPng: 'ru-sberbank-small-inverted.png',
   formLogoScheme: 'inverted'
 }
 var bankDetectedBrandDetectedCardNumber = '40233300'
@@ -100,6 +112,10 @@ var bankDetectedBrandDetectedResult = {
   bankLogoBigInvertedSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
   bankLogoSmallOriginalSvg: 'https://static.binking.io/banks-logos/3dc348ddd7af05f0.svg',
   bankLogoSmallInvertedSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
+  bankLogoBigOriginalPng: 'https://static.binking.io/banks-logos/01be7d8dcbb14510.png',
+  bankLogoBigInvertedPng: 'https://static.binking.io/banks-logos/0e73c94e945364bc.png',
+  bankLogoSmallOriginalPng: 'https://static.binking.io/banks-logos/efe5e16478056787.png',
+  bankLogoSmallInvertedPng: 'https://static.binking.io/banks-logos/5310e5d14dbf7c17.png',
   bankColor: '#1a9f29',
   bankColors: ['#1a9f29'],
   bankCountry: 'ru',
@@ -109,6 +125,8 @@ var bankDetectedBrandDetectedResult = {
   brandName: 'Visa',
   brandLogoOriginalSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
   brandLogoInvertedSvg: 'https://static.binking.io/brands-logos/visa-inverted.svg',
+  brandLogoOriginalPng: 'https://static.binking.io/brands-logos/visa-original.png',
+  brandLogoInvertedPng: 'https://static.binking.io/brands-logos/visa-inverted.png',
   formBackgroundColor: '#1a9f29',
   formBackgroundColors: ['#1a9f29', '#0d7518'],
   formBackgroundGradient: 'linear-gradient(135deg, #1a9f29, #0d7518)',
@@ -118,6 +136,9 @@ var bankDetectedBrandDetectedResult = {
   formBrandLogoSvg: 'https://static.binking.io/brands-logos/visa-inverted.svg',
   formBankLogoBigSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
   formBankLogoSmallSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
+  formBrandLogoPng: 'https://static.binking.io/brands-logos/visa-inverted.png',
+  formBankLogoBigPng: 'https://static.binking.io/banks-logos/0e73c94e945364bc.png',
+  formBankLogoSmallPng: 'https://static.binking.io/banks-logos/5310e5d14dbf7c17.png',
   formLogoScheme: 'inverted',
   codeName: 'CVV',
   codeMinLength: 3,
@@ -139,7 +160,13 @@ var bankDetectedBrandDetectedResultArchive = _.assign({}, bankDetectedBrandDetec
   bankLogoBigOriginalSvg: '/banks-logos-path/ru-sberbank-big-original.svg',
   bankLogoBigInvertedSvg: '/banks-logos-path/ru-sberbank-big-inverted.svg',
   bankLogoSmallOriginalSvg: '/banks-logos-path/ru-sberbank-small-original.svg',
-  bankLogoSmallInvertedSvg: '/banks-logos-path/ru-sberbank-small-inverted.svg'
+  bankLogoSmallInvertedSvg: '/banks-logos-path/ru-sberbank-small-inverted.svg',
+  formBankLogoBigPng: '/banks-logos-path/ru-sberbank-big-inverted.png',
+  formBankLogoSmallPng: '/banks-logos-path/ru-sberbank-small-inverted.png',
+  bankLogoBigOriginalPng: '/banks-logos-path/ru-sberbank-big-original.png',
+  bankLogoBigInvertedPng: '/banks-logos-path/ru-sberbank-big-inverted.png',
+  bankLogoSmallOriginalPng: '/banks-logos-path/ru-sberbank-small-original.png',
+  bankLogoSmallInvertedPng: '/banks-logos-path/ru-sberbank-small-inverted.png'
 })
 var bankNotDetectedBrandDetectedCardNumber = '40000000'
 var bankNotDetectedBrandDetectedResult = {
@@ -150,6 +177,10 @@ var bankNotDetectedBrandDetectedResult = {
   bankLogoBigInvertedSvg: null,
   bankLogoSmallOriginalSvg: null,
   bankLogoSmallInvertedSvg: null,
+  bankLogoBigOriginalPng: null,
+  bankLogoBigInvertedPng: null,
+  bankLogoSmallOriginalPng: null,
+  bankLogoSmallInvertedPng: null,
   bankColor: null,
   bankColors: null,
   bankCountry: null,
@@ -159,6 +190,8 @@ var bankNotDetectedBrandDetectedResult = {
   brandName: 'Visa',
   brandLogoOriginalSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
   brandLogoInvertedSvg: 'https://static.binking.io/brands-logos/visa-inverted.svg',
+  brandLogoOriginalPng: 'https://static.binking.io/brands-logos/visa-original.png',
+  brandLogoInvertedPng: 'https://static.binking.io/brands-logos/visa-inverted.png',
   formBackgroundColor: '#eeeeee',
   formBackgroundColors: ['#eeeeee', '#dddddd'],
   formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
@@ -166,8 +199,11 @@ var bankNotDetectedBrandDetectedResult = {
   formTextColor: '#000000',
   formBorderColor: '#333333',
   formBrandLogoSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
+  formBrandLogoPng: 'https://static.binking.io/brands-logos/visa-original.png',
   formBankLogoBigSvg: null,
+  formBankLogoBigPng: null,
   formBankLogoSmallSvg: null,
+  formBankLogoSmallPng: null,
   formLogoScheme: null,
   codeName: 'CVV',
   codeMinLength: 3,
@@ -192,6 +228,10 @@ var bankNotDetectedBrandNotDetectedResult = {
   bankLogoBigInvertedSvg: null,
   bankLogoSmallOriginalSvg: null,
   bankLogoSmallInvertedSvg: null,
+  bankLogoBigOriginalPng: null,
+  bankLogoBigInvertedPng: null,
+  bankLogoSmallOriginalPng: null,
+  bankLogoSmallInvertedPng: null,
   bankColor: null,
   bankColors: null,
   bankCountry: null,
@@ -201,6 +241,8 @@ var bankNotDetectedBrandNotDetectedResult = {
   brandName: null,
   brandLogoOriginalSvg: null,
   brandLogoInvertedSvg: null,
+  brandLogoOriginalPng: null,
+  brandLogoInvertedPng: null,
   formBackgroundColor: '#eeeeee',
   formBackgroundColors: ['#eeeeee', '#dddddd'],
   formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
@@ -210,8 +252,11 @@ var bankNotDetectedBrandNotDetectedResult = {
   formBrandLogoSvg: null,
   formBankLogoBigSvg: null,
   formBankLogoSmallSvg: null,
+  formBrandLogoPng: null,
+  formBankLogoBigPng: null,
+  formBankLogoSmallPng: null,
   formLogoScheme: null,
-  codeName: null,
+  codeName: 'CVV',
   codeMinLength: 3,
   codeMaxLength: 4,
   cardNumberMask: '0000 0000 0000 0000000',
@@ -234,6 +279,10 @@ var brandDetectedResult = {
   bankLogoBigInvertedSvg: null,
   bankLogoSmallOriginalSvg: null,
   bankLogoSmallInvertedSvg: null,
+  bankLogoBigOriginalPng: null,
+  bankLogoBigInvertedPng: null,
+  bankLogoSmallOriginalPng: null,
+  bankLogoSmallInvertedPng: null,
   bankColor: null,
   bankColors: null,
   bankCountry: null,
@@ -243,6 +292,8 @@ var brandDetectedResult = {
   brandName: 'Visa',
   brandLogoOriginalSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
   brandLogoInvertedSvg: 'https://static.binking.io/brands-logos/visa-inverted.svg',
+  brandLogoOriginalPng: 'https://static.binking.io/brands-logos/visa-original.png',
+  brandLogoInvertedPng: 'https://static.binking.io/brands-logos/visa-inverted.png',
   formBackgroundColor: '#eeeeee',
   formBackgroundColors: ['#eeeeee', '#dddddd'],
   formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
@@ -252,6 +303,9 @@ var brandDetectedResult = {
   formBrandLogoSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
   formBankLogoBigSvg: null,
   formBankLogoSmallSvg: null,
+  formBrandLogoPng: 'https://static.binking.io/brands-logos/visa-original.png',
+  formBankLogoBigPng: null,
+  formBankLogoSmallPng: null,
   formLogoScheme: null,
   codeName: 'CVV',
   codeMinLength: 3,
@@ -276,6 +330,10 @@ var brandNotDetectedResult = {
   bankLogoBigInvertedSvg: null,
   bankLogoSmallOriginalSvg: null,
   bankLogoSmallInvertedSvg: null,
+  bankLogoBigOriginalPng: null,
+  bankLogoBigInvertedPng: null,
+  bankLogoSmallOriginalPng: null,
+  bankLogoSmallInvertedPng: null,
   bankColor: null,
   bankColors: null,
   bankCountry: null,
@@ -285,6 +343,8 @@ var brandNotDetectedResult = {
   brandName: null,
   brandLogoOriginalSvg: null,
   brandLogoInvertedSvg: null,
+  brandLogoOriginalPng: null,
+  brandLogoInvertedPng: null,
   formBackgroundColor: '#eeeeee',
   formBackgroundColors: ['#eeeeee', '#dddddd'],
   formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
@@ -294,8 +354,11 @@ var brandNotDetectedResult = {
   formBrandLogoSvg: null,
   formBankLogoBigSvg: null,
   formBankLogoSmallSvg: null,
+  formBrandLogoPng: null,
+  formBankLogoBigPng: null,
+  formBankLogoSmallPng: null,
   formLogoScheme: null,
-  codeName: null,
+  codeName: 'CVV',
   codeMinLength: 3,
   codeMaxLength: 4,
   cardNumberMask: '0000 0000 0000 0000000',
@@ -311,21 +374,25 @@ var brandNotDetectedResult = {
 }
 var emptyResult = _.assign({}, binking.defaultResult, { cardNumberSource: '' })
 
-beforeEach(function() {
+beforeEach(function () {
   binking._banks = {}
   binking._bins = {}
-});
+})
 
 describe('binking()', function () {
   it('should work when brand and bank not detected (callback, api)', function (done) {
-    binking(bankNotDetectedBrandNotDetectedCardNumber, { strategy: 'api', apiKey: apiKey, sandbox: true }, function (result, err) {
-      expect(result).to.eql(bankNotDetectedBrandNotDetectedResult)
-      if (err) {
-        done(err)
-      } else {
-        done()
+    binking(
+      bankNotDetectedBrandNotDetectedCardNumber,
+      { strategy: 'api', apiKey: apiKey, sandbox: true },
+      function (result, err) {
+        expect(result).to.eql(bankNotDetectedBrandNotDetectedResult)
+        if (err) {
+          done(err)
+        } else {
+          done()
+        }
       }
-    })
+    )
   })
 
   it('should work when brand and bank not detected (callback, archive)', function (done) {
@@ -373,14 +440,18 @@ describe('binking()', function () {
   })
 
   it('should work when brand detected and bank not detected (callback, api)', function (done) {
-    binking(bankNotDetectedBrandDetectedCardNumber, { strategy: 'api', apiKey: apiKey, sandbox: true }, function (result, err) {
-      expect(result).to.eql(bankNotDetectedBrandDetectedResult)
-      if (err) {
-        done(err)
-      } else {
-        done()
+    binking(
+      bankNotDetectedBrandDetectedCardNumber,
+      { strategy: 'api', apiKey: apiKey, sandbox: true },
+      function (result, err) {
+        expect(result).to.eql(bankNotDetectedBrandDetectedResult)
+        if (err) {
+          done(err)
+        } else {
+          done()
+        }
       }
-    })
+    )
   })
 
   it('should work when brand detected and bank not detected if api not working (callback, api)', function (done) {
@@ -450,27 +521,35 @@ describe('binking()', function () {
   })
 
   it('should work when brand and bank detected (callback, api)', function (done) {
-    binking(bankDetectedBrandDetectedCardNumber, { strategy: 'api', apiKey: apiKey, sandbox: true }, function (result, err) {
-      expect(result).to.eql(bankDetectedBrandDetectedResult)
-      if (err) {
-        done(err)
-      } else {
-        done()
+    binking(
+      bankDetectedBrandDetectedCardNumber,
+      { strategy: 'api', apiKey: apiKey, sandbox: true },
+      function (result, err) {
+        expect(result).to.eql(bankDetectedBrandDetectedResult)
+        if (err) {
+          done(err)
+        } else {
+          done()
+        }
       }
-    })
+    )
   })
 
   it('should work when brand and bank detected (callback, archive)', function (done) {
     binking.addBanks(banks)
     binking.addBins(bins)
-    binking(bankDetectedBrandDetectedCardNumber, { strategy: 'archive', banksLogosPath: '/banks-logos-path/' }, function (result, err) {
-      expect(result).to.eql(bankDetectedBrandDetectedResultArchive)
-      if (err) {
-        done(err)
-      } else {
-        done()
+    binking(
+      bankDetectedBrandDetectedCardNumber,
+      { strategy: 'archive', banksLogosPath: '/banks-logos-path/' },
+      function (result, err) {
+        expect(result).to.eql(bankDetectedBrandDetectedResultArchive)
+        if (err) {
+          done(err)
+        } else {
+          done()
+        }
       }
-    })
+    )
   })
 
   it('should work when brand and bank detected (promise, api)', function (done) {
@@ -500,7 +579,11 @@ describe('binking()', function () {
   it('should work when brand and bank detected (sync, archive)', function () {
     binking.addBanks(banks)
     binking.addBins(bins)
-    var result = binking(bankDetectedBrandDetectedCardNumber, { strategy: 'archive', sync: true, banksLogosPath: '/banks-logos-path/' })
+    var result = binking(bankDetectedBrandDetectedCardNumber, {
+      strategy: 'archive',
+      sync: true,
+      banksLogosPath: '/banks-logos-path/'
+    })
     expect(result).to.eql(bankDetectedBrandDetectedResultArchive)
   })
 
@@ -835,17 +918,21 @@ describe('binking.getBank()', function () {
 
 describe('binking.getBanks()', function () {
   it('should return array of banks or nulls (callback, api)', function (done) {
-    binking.getBanks(['ru-sberbank', 'ru-xxx', 'ru-rosbank'], { strategy: 'api', apiKey: apiKey, sandbox: true }, function (result, err) {
-      expect(result).to.be.an('array')
-      expect(result[0]).to.eql(getBankSberbankApiResult)
-      expect(result[1]).to.equal(null)
-      expect(result[2].bankAlias).to.equal('ru-rosbank')
-      if (err) {
-        done(err)
-      } else {
-        done()
+    binking.getBanks(
+      ['ru-sberbank', 'ru-xxx', 'ru-rosbank'],
+      { strategy: 'api', apiKey: apiKey, sandbox: true },
+      function (result, err) {
+        expect(result).to.be.an('array')
+        expect(result[0]).to.eql(getBankSberbankApiResult)
+        expect(result[1]).to.equal(null)
+        expect(result[2].bankAlias).to.equal('ru-rosbank')
+        if (err) {
+          done(err)
+        } else {
+          done()
+        }
       }
-    })
+    )
   })
 
   it('should return array of banks or nulls (callback, archive)', function (done) {
@@ -989,7 +1076,10 @@ describe('binking.setDefaultResult()', function () {
       formBorderColor: '#333333',
       bankAlias: 'wrong'
     }
-    var expectedDefaultResult = _.assign({}, binking.defaultResult, newProps, { formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)', bankAlias: null })
+    var expectedDefaultResult = _.assign({}, binking.defaultResult, newProps, {
+      formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
+      bankAlias: null
+    })
     binking.setDefaultResult(newProps)
     expect(binking.defaultResult).to.eql(expectedDefaultResult)
     binking.setDefaultResult(savedDefaultResult)
@@ -1055,7 +1145,9 @@ describe('binking._getCardNumberNormalized()', function () {
 describe('binking._getGradient()', function () {
   it('should return css gradient by colors array and degreeses', function () {
     expect(binking._getGradient(['#000000', '#ffffff'], 100)).to.equal('linear-gradient(100deg, #000000, #ffffff)')
-    expect(binking._getGradient(['#000000', '#aaaaaa', '#ffffff'], 100)).to.equal('linear-gradient(100deg, #000000, #aaaaaa, #ffffff)')
+    expect(binking._getGradient(['#000000', '#aaaaaa', '#ffffff'], 100)).to.equal(
+      'linear-gradient(100deg, #000000, #aaaaaa, #ffffff)'
+    )
   })
 })
 
@@ -1182,7 +1274,9 @@ describe('binking._getMask()', function () {
 describe('binking._getNumberNice()', function () {
   it('should return masked card number by stringified card number and gaps', function () {
     expect(binking._getNumberNice('1234567890123456', [4, 8, 12])).to.equal('1234 5678 9012 3456')
-    expect(binking._getNumberNice('1234567890123456000000000000000', [4, 8, 12])).to.equal('1234 5678 9012 3456000000000000000')
+    expect(binking._getNumberNice('1234567890123456000000000000000', [4, 8, 12])).to.equal(
+      '1234 5678 9012 3456000000000000000'
+    )
     expect(binking._getNumberNice('12345678', [4, 8, 12])).to.equal('1234 5678')
     expect(binking._getNumberNice('12345', [4, 8, 12])).to.equal('1234 5')
     expect(binking._getNumberNice('', [4, 8, 12])).to.equal('')

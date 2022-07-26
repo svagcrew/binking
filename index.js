@@ -617,7 +617,7 @@
     mir: {
       name: 'Mir',
       alias: 'mir',
-      pattern: /^(22)/,
+      pattern: /^(2200|2201|2202|2203|2204)/,
       gaps: [4, 8, 12],
       lengths: [16, 17, 18, 19],
       codeName: 'CVP2',

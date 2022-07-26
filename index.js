@@ -635,6 +635,7 @@
       }
     }
     if (brands.length === 1) return brands[0]
+    if (cardNumberNormalized.length >= 4) return brands[brands.length - 1]
     return null
   }
 

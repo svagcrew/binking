@@ -798,6 +798,34 @@ describe('binking()', function () {
         done(err)
       })
   })
+
+  it('should correctly detect visa brand', function () {
+    binking.addBanks(banks)
+    binking.addBins(bins)
+    var result = binking('41', { strategy: 'archive', sync: true })
+    expect(result.brandAlias).to.eql('visa')
+  })
+
+  it('should correctly detect maestro brand', function () {
+    binking.addBanks(banks)
+    binking.addBins(bins)
+    var result = binking('4900', { strategy: 'archive', sync: true })
+    expect(result.brandAlias).to.eql('maestro')
+  })
+
+  it('should correctly detect mastercard brand', function () {
+    binking.addBanks(banks)
+    binking.addBins(bins)
+    var result = binking('2222', { strategy: 'archive', sync: true })
+    expect(result.brandAlias).to.eql('mastercard')
+  })
+
+  it('should correctly detect mir brand', function () {
+    binking.addBanks(banks)
+    binking.addBins(bins)
+    var result = binking('2200', { strategy: 'archive', sync: true })
+    expect(result.brandAlias).to.eql('mir')
+  })
 })
 
 describe('binking.getBank()', function () {

@@ -1,5 +1,5 @@
 /*
- * binking v2.0.12
+ * binking v2.0.13
  * Get bank logo, colors, phone, brand, validation and etc. by card number
  * https://github.com/sdandteam/binking.git
  * by BinKing (https://binking.io)
@@ -624,7 +624,7 @@
     mir: {
       name: 'Mir',
       alias: 'mir',
-      pattern: /^(22)/,
+      pattern: /^(2200|2201|2202|2203|2204)/,
       gaps: [4, 8, 12],
       lengths: [16, 17, 18, 19],
       codeName: 'CVP2',
@@ -642,6 +642,7 @@
       }
     }
     if (brands.length === 1) return brands[0]
+    if (cardNumberNormalized.length >= 4) return brands[brands.length - 1]
     return null
   }
 

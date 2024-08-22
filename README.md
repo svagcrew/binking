@@ -1,3 +1,7 @@
+# DEPRECATED
+
+The code is no longer supported. The API will stop working on October 1, 2024. Archives with all the data (BINs, banks, logos) have been made freely available: [https://github.com/svagcrew/binking/tree/master/archives](https://github.com/svagcrew/binking/tree/master/archives). You can continue using the SDK with these archives. If you previously used the API, download the archives and use them instead of the API.
+
 # BinKing
 
 BinKing is a King banking card data fill-in form. BinKing allows you to get the bank logo, colors, phone number, brand logo and more by card number. BinKing also helps in the validation of these forms. Use BinKing to create a smart and responsive card acceptance form. Increase conversion, increase user loyalty, reduce the workload of the support department.
